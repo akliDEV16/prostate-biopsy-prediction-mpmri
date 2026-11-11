@@ -1,8 +1,15 @@
 numpy==1.26.4
 pandas==2.2.3
 scipy==1.14.1
+
 scikit-learn==1.5.2
 imbalanced-learn==0.12.4
+
 matplotlib==3.9.2
 seaborn==0.13.2
-jupyter
+
+streamlit==1.67.0
+
+pytest==9.2.0
+
+jupyter==1.1.1
