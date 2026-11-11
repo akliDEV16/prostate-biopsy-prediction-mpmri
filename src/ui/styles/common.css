@@ -1,0 +1,219 @@
+
+/* APPLICATION */
+
+.stApp {
+    background-color: #EAF4FC;
+    color: #28649B;
+}
+
+.block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+
+/* TYPOGRAPHIE */
+
+html {
+    font-size: 16px;
+}
+
+body,
+.stApp {
+    font-family: "Source Sans 3", "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4 {
+    color: #28649B !important;
+    font-weight: 650 !important;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 1.9rem !important;
+}
+
+h3 {
+    font-size: 1.55rem !important;
+}
+
+h4 {
+    font-size: 1.25rem !important;
+}
+
+p,
+.stMarkdown {
+    color: #536B80;
+    font-size: 1.08rem;
+    line-height: 1.65;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #D3E5F4;
+    margin: 1.8rem 0;
+}
+
+
+/* NAVIGATION */
+
+[data-testid="stHeader"] {
+    background-color: #EAF4FC;
+}
+
+[data-testid="stBaseButton-headerNoPadding"] {
+    color: #28649B;
+}
+
+[data-testid="stPageLink"] a {
+    color: #536B80;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+[data-testid="stPageLink"] a:hover {
+    color: #438CCB;
+}
+
+
+/* BOUTONS STANDARDS */
+
+.stButton > button {
+    background-color: #438CCB;
+    color: #FFFFFF !important;
+    border: 1px solid #438CCB;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.65rem 1.3rem;
+    box-shadow: none;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.stButton > button p,
+.stButton > button span {
+    color: #FFFFFF !important;
+}
+
+.stButton > button:hover {
+    background-color: #28649B !important;
+    border-color: #28649B !important;
+    color: #FFFFFF !important;
+}
+
+.stButton > button:hover p,
+.stButton > button:hover span {
+    color: #FFFFFF !important;
+}
+
+.stButton > button:focus:not(:active) {
+    border-color: #438CCB;
+    color: #FFFFFF !important;
+}
+
+
+/* FOOTER */
+
+.app-footer {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 2.5rem;
+    padding: 1.3rem 1.5rem;
+
+    background-color: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+
+    box-shadow: none;
+}
+
+.footer-info {
+    color: #536B80;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.footer-info span {
+    margin: 0 0.4rem;
+    color: #438CCB;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    padding-top: 0.8rem;
+    border-top: 1px solid #D3E5F4;
+
+    color: #536B80;
+    font-size: 0.82rem;
+}
+
+
+/* ICÔNES D'ANCRES */
+
+[data-testid="stHeaderActionElements"] {
+    display: none !important;
+}
+
+
+/* CLASSES UTILITAIRES */
+
+.ai-accent {
+    color: #6366F1;
+}
+
+.ai-background {
+    background-color: #EEF2FF;
+    border-left: 3px solid #6366F1;
+    padding: 0.9rem 1.1rem;
+    border-radius: 4px;
+}
+
+.status-negative {
+    color: #10B981;
+}
+
+.status-positive {
+    color: #F43F5E;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 640px) {
+
+    .block-container {
+        padding-top: 1.2rem;
+        padding-bottom: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem !important;
+    }
+
+    h2 {
+        font-size: 1.6rem !important;
+    }
+
+    h3 {
+        font-size: 1.35rem !important;
+    }
+
+    .app-footer {
+        padding: 1rem;
+    }
+}
