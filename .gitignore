@@ -1,24 +1,30 @@
-
-# Donnees medicales
+# Donnees originales et pretraitees
 data/raw/*
 data/processed/*
+
+# Conserver les dossiers dans Git
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# Python
+# Fichiers compiles
 __pycache__/
 *.py[cod]
-*.pyo
+*$py.class
 
 # Environnements virtuels
 venv/
 .venv/
 env/
+ENV/
 
-# Jupyter
+# Fichiers temporaires
+*.tmp
+*.bak
+*.swp
+
 .ipynb_checkpoints/
 
-# Modeles entraines
+# MODELES ENTRAINES
 *.pkl
 *.joblib
 *.pth
@@ -26,10 +32,36 @@ env/
 *.h5
 *.keras
 
-# IDE
+# TESTS ET COUVERTURE
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# IDE ET EDITEURS
 .vscode/
 .idea/
+*.sublime-workspace
 
-# Systeme
+# STREAMLIT
+.streamlit/secrets.toml
+.streamlit/credentials.toml
+
+# VARIABLES D'ENVIRONNEMENT
+.env
+.env.*
+!.env.example
+
+# OUTILS DE QUALITE DU CODE
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# SYSTEME
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# LOGS
+*.log
