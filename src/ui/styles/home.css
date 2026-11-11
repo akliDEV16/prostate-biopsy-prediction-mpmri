@@ -1,0 +1,278 @@
+
+/* BOUTON PRINCIPAL */
+
+.st-key-main_demo_button button {
+    background-color: #438CCB !important;
+    border-color: #438CCB !important;
+    color: #FFFFFF !important;
+}
+
+.st-key-main_demo_button button:hover {
+    background-color: #28649B !important;
+    border-color: #28649B !important;
+    color: #FFFFFF !important;
+}
+
+.st-key-main_demo_button button p,
+.st-key-main_demo_button button span {
+    color: #FFFFFF !important;
+}
+
+
+/* CARTES DE NAVIGATION */
+
+/* Structure générale */
+
+.st-key-card_subject button,
+.st-key-card_ai button,
+.st-key-card_results button,
+.st-key-card_methodology button {
+
+    position: relative;
+
+    width: 100%;
+    min-height: 165px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.65rem;
+
+    padding: 1.5rem;
+
+    background-color: #FFFFFF !important;
+    color: #28649B !important;
+
+    border: 1px solid #D3E5F4 !important;
+    border-radius: 7px;
+
+    box-shadow: none;
+    overflow: hidden;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* Conteneur interne */
+
+.st-key-card_subject button > div,
+.st-key-card_ai button > div,
+.st-key-card_results button > div,
+.st-key-card_methodology button > div {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+
+    width: 100%;
+}
+
+
+/* Icônes : visibles avant le survol */
+
+.st-key-card_subject button [data-testid="stIconMaterial"],
+.st-key-card_ai button [data-testid="stIconMaterial"],
+.st-key-card_results button [data-testid="stIconMaterial"],
+.st-key-card_methodology button [data-testid="stIconMaterial"] {
+
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    color: #438CCB !important;
+    font-size: 1.5rem !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+
+/* Titres des cartes */
+
+.st-key-card_subject button [data-testid="stMarkdownContainer"],
+.st-key-card_ai button [data-testid="stMarkdownContainer"],
+.st-key-card_results button [data-testid="stMarkdownContainer"],
+.st-key-card_methodology button [data-testid="stMarkdownContainer"] {
+
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.st-key-card_subject button p,
+.st-key-card_ai button p,
+.st-key-card_results button p,
+.st-key-card_methodology button p {
+
+    color: #28649B !important;
+
+    font-size: 1.35rem !important;
+    font-weight: 650 !important;
+
+    line-height: 1.4;
+    text-align: center;
+
+    margin: 0;
+}
+
+
+/* Descriptions */
+
+.st-key-card_subject button::after,
+.st-key-card_ai button::after,
+.st-key-card_results button::after,
+.st-key-card_methodology button::after {
+
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1.5rem;
+
+    color: #FFFFFF !important;
+
+    font-size: 1.08rem;
+    font-weight: 400;
+    line-height: 1.6;
+
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: break-word;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.2s ease;
+
+    pointer-events: none;
+}
+
+
+/* Description de chaque carte */
+
+.st-key-card_subject button::after {
+    content: "Découvrez le cancer de la prostate, les biopsies et les données utilisées dans notre étude.";
+}
+
+.st-key-card_ai button::after {
+    content: "Découvrez les modèles de Machine Learning et leur rôle dans notre projet.";
+}
+
+.st-key-card_results button::after {
+    content: "Explorez les performances et les résultats de l'évaluation des modèles.";
+}
+
+.st-key-card_methodology button::after {
+    content: "Suivez les étapes de préparation des données, d'entraînement et d'évaluation.";
+}
+
+
+/* Fond au survol */
+
+.st-key-card_subject button:hover,
+.st-key-card_ai button:hover,
+.st-key-card_results button:hover,
+.st-key-card_methodology button:hover {
+
+    background-color: #28649B !important;
+    border-color: #28649B !important;
+}
+
+
+/* Masquer le titre au survol */
+
+.st-key-card_subject button:hover [data-testid="stMarkdownContainer"],
+.st-key-card_ai button:hover [data-testid="stMarkdownContainer"],
+.st-key-card_results button:hover [data-testid="stMarkdownContainer"],
+.st-key-card_methodology button:hover [data-testid="stMarkdownContainer"] {
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+
+/* Masquer l'icône au survol */
+
+.st-key-card_subject button:hover [data-testid="stIconMaterial"],
+.st-key-card_ai button:hover [data-testid="stIconMaterial"],
+.st-key-card_results button:hover [data-testid="stIconMaterial"],
+.st-key-card_methodology button:hover [data-testid="stIconMaterial"] {
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+
+/* Afficher la description au survol */
+
+.st-key-card_subject button:hover::after,
+.st-key-card_ai button:hover::after,
+.st-key-card_results button:hover::after,
+.st-key-card_methodology button:hover::after {
+
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* STATISTIQUES */
+
+[data-testid="stMetric"] {
+    background-color: transparent;
+    border: none;
+
+    padding: 0.6rem 0;
+
+    box-shadow: none;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #536B80;
+    font-size: 1rem;
+}
+
+[data-testid="stMetricValue"] {
+    color: #438CCB;
+    font-size: 2.2rem;
+    font-weight: 650;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 640px) {
+
+    .st-key-card_subject button,
+    .st-key-card_ai button,
+    .st-key-card_results button,
+    .st-key-card_methodology button {
+
+        min-height: 145px;
+        padding: 1rem;
+    }
+
+    .st-key-card_subject button p,
+    .st-key-card_ai button p,
+    .st-key-card_results button p,
+    .st-key-card_methodology button p {
+
+        font-size: 1.15rem !important;
+    }
+
+    .st-key-card_subject button::after,
+    .st-key-card_ai button::after,
+    .st-key-card_results button::after,
+    .st-key-card_methodology button::after {
+
+        padding: 1rem;
+        font-size: 0.98rem;
+    }
+}
