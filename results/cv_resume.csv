@@ -1,0 +1,4 @@
+modele,auc_moyenne,auc_ecart_type,balanced_accuracy_moyenne,balanced_accuracy_ecart_type,accuracy_moyenne,accuracy_ecart_type
+reponse_naive,0.5,0.0,0.5,0.0,0.5368,0.0042
+regression_logistique,0.9013,0.0358,0.822,0.0349,0.824,0.0341
+random_forest,0.8994,0.0227,0.8211,0.0291,0.8225,0.0279

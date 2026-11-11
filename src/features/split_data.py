@@ -10,7 +10,7 @@ from sklearn.model_selection import RepeatedStratifiedKFold
 # CONFIGURATION 
 RANDOM_STATE = 0
 N_SPLITS = 5
-N_REPEATS = 5
+N_REPEATS = 3
 
 
 def make_cv(n_splits=N_SPLITS, n_repeats=N_REPEATS, random_state=RANDOM_STATE):
