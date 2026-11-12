@@ -1,162 +1,166 @@
+/* Feuille de la page d'accueil.
+   Les cartes de navigation sont des boutons st.button identifiés par leur clé (st-key-...). */
+
+/* ANIMATIONS */
+@keyframes home-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes home-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+
+@keyframes home-sheen {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
 
 /* BOUTON PRINCIPAL */
+.st-key-main_demo_button {
+    animation: home-rise 0.8s ease both;
+}
 
 .st-key-main_demo_button button {
-    background-color: #438CCB !important;
-    border-color: #438CCB !important;
+    min-height: 3.4rem;
+    padding: 0.9rem 2rem !important;
+    background: linear-gradient(120deg, #438CCB 0%, #28649B 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
     color: #FFFFFF !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 8px 20px rgba(40, 100, 155, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .st-key-main_demo_button button:hover {
-    background-color: #28649B !important;
-    border-color: #28649B !important;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 28px rgba(40, 100, 155, 0.4);
     color: #FFFFFF !important;
 }
 
 .st-key-main_demo_button button p,
 .st-key-main_demo_button button span {
     color: #FFFFFF !important;
+    font-size: 1.2rem !important;
 }
 
-
 /* CARTES DE NAVIGATION */
-
-/* Structure générale */
-
 .st-key-card_subject button,
 .st-key-card_ai button,
 .st-key-card_results button,
 .st-key-card_methodology button {
-
     position: relative;
-
     width: 100%;
-    min-height: 165px;
-
+    min-height: 190px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
-    gap: 0.65rem;
-
-    padding: 1.5rem;
-
+    gap: 0.75rem;
+    padding: 1.7rem;
+    overflow: hidden;
     background-color: #FFFFFF !important;
     color: #28649B !important;
-
     border: 1px solid #D3E5F4 !important;
-    border-radius: 7px;
-
-    box-shadow: none;
-    overflow: hidden;
-
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(40, 100, 155, 0.08);
+    animation: home-rise 0.8s ease both;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease,
+                background-color 0.3s ease;
 }
 
-
-/* Conteneur interne */
+/* Reflet qui traverse la carte au survol */
+.st-key-card_subject button::before,
+.st-key-card_ai button::before,
+.st-key-card_results button::before,
+.st-key-card_methodology button::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    content: "";
+    pointer-events: none;
+}
 
 .st-key-card_subject button > div,
 .st-key-card_ai button > div,
 .st-key-card_results button > div,
 .st-key-card_methodology button > div {
-
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.65rem;
-
+    gap: 0.75rem;
     width: 100%;
 }
 
-
-/* Icônes : visibles avant le survol */
-
+/* Icônes : visibles, légère animation de flottement */
 .st-key-card_subject button [data-testid="stIconMaterial"],
 .st-key-card_ai button [data-testid="stIconMaterial"],
 .st-key-card_results button [data-testid="stIconMaterial"],
 .st-key-card_methodology button [data-testid="stIconMaterial"] {
-
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-
     color: #438CCB !important;
-    font-size: 1.5rem !important;
-
+    font-size: 2.2rem !important;
     opacity: 1 !important;
     visibility: visible !important;
+    animation: home-float 4s ease-in-out infinite;
+    transition: opacity 0.2s ease;
 }
 
-
 /* Titres des cartes */
-
 .st-key-card_subject button [data-testid="stMarkdownContainer"],
 .st-key-card_ai button [data-testid="stMarkdownContainer"],
 .st-key-card_results button [data-testid="stMarkdownContainer"],
 .st-key-card_methodology button [data-testid="stMarkdownContainer"] {
-
     display: block;
     opacity: 1;
     visibility: visible;
+    transition: opacity 0.25s ease;
 }
 
 .st-key-card_subject button p,
 .st-key-card_ai button p,
 .st-key-card_results button p,
 .st-key-card_methodology button p {
-
     color: #28649B !important;
-
-    font-size: 1.35rem !important;
-    font-weight: 650 !important;
-
-    line-height: 1.4;
+    font-size: 1.55rem !important;
+    font-weight: 700 !important;
+    line-height: 1.35;
     text-align: center;
-
     margin: 0;
 }
 
-
-/* Descriptions */
-
+/* Description affichée au survol */
 .st-key-card_subject button::after,
 .st-key-card_ai button::after,
 .st-key-card_results button::after,
 .st-key-card_methodology button::after {
-
     position: absolute;
     inset: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    padding: 1.5rem;
-
+    padding: 1.6rem;
     color: #FFFFFF !important;
-
-    font-size: 1.08rem;
-    font-weight: 400;
+    font-size: 1.2rem;
+    font-weight: 500;
     line-height: 1.6;
-
     text-align: center;
     white-space: normal;
     overflow-wrap: break-word;
-
     opacity: 0;
     visibility: hidden;
-
-    transition: opacity 0.2s ease;
-
+    transform: scale(0.96);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     pointer-events: none;
 }
-
-
-/* Description de chaque carte */
 
 .st-key-card_subject button::after {
     content: "Découvrez le cancer de la prostate, les biopsies et les données utilisées dans notre étude.";
@@ -174,105 +178,107 @@
     content: "Suivez les étapes de préparation des données, d'entraînement et d'évaluation.";
 }
 
-
-/* Fond au survol */
-
+/* Survol : fond coloré, léger soulèvement, description visible */
 .st-key-card_subject button:hover,
 .st-key-card_ai button:hover,
 .st-key-card_results button:hover,
 .st-key-card_methodology button:hover {
-
-    background-color: #28649B !important;
+    transform: translateY(-6px);
+    background: linear-gradient(135deg, #438CCB 0%, #28649B 100%) !important;
     border-color: #28649B !important;
+    box-shadow: 0 18px 36px rgba(40, 100, 155, 0.28);
 }
 
-
-/* Masquer le titre au survol */
+.st-key-card_subject button:hover::before,
+.st-key-card_ai button:hover::before,
+.st-key-card_results button:hover::before,
+.st-key-card_methodology button:hover::before {
+    opacity: 1;
+    animation: home-sheen 1.6s ease infinite;
+}
 
 .st-key-card_subject button:hover [data-testid="stMarkdownContainer"],
 .st-key-card_ai button:hover [data-testid="stMarkdownContainer"],
 .st-key-card_results button:hover [data-testid="stMarkdownContainer"],
-.st-key-card_methodology button:hover [data-testid="stMarkdownContainer"] {
-
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-
-
-/* Masquer l'icône au survol */
-
+.st-key-card_methodology button:hover [data-testid="stMarkdownContainer"],
 .st-key-card_subject button:hover [data-testid="stIconMaterial"],
 .st-key-card_ai button:hover [data-testid="stIconMaterial"],
 .st-key-card_results button:hover [data-testid="stIconMaterial"],
 .st-key-card_methodology button:hover [data-testid="stIconMaterial"] {
-
     opacity: 0 !important;
     visibility: hidden !important;
 }
-
-
-/* Afficher la description au survol */
 
 .st-key-card_subject button:hover::after,
 .st-key-card_ai button:hover::after,
 .st-key-card_results button:hover::after,
 .st-key-card_methodology button:hover::after {
-
     opacity: 1;
     visibility: visible;
+    transform: scale(1);
 }
 
-
-/* STATISTIQUES */
-
-[data-testid="stMetric"] {
-    background-color: transparent;
-    border: none;
-
-    padding: 0.6rem 0;
-
-    box-shadow: none;
-}
-
-[data-testid="stMetricLabel"] {
-    color: #536B80;
-    font-size: 1rem;
-}
-
+/* STATISTIQUES : légère mise en valeur des chiffres */
 [data-testid="stMetricValue"] {
-    color: #438CCB;
-    font-size: 2.2rem;
-    font-weight: 650;
+    background: linear-gradient(120deg, #438CCB, #28649B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-
 
 /* RESPONSIVE */
+@media (max-width: 900px) {
+    .st-key-card_subject button p,
+    .st-key-card_ai button p,
+    .st-key-card_results button p,
+    .st-key-card_methodology button p {
+        font-size: 1.3rem !important;
+    }
+}
 
 @media (max-width: 640px) {
-
     .st-key-card_subject button,
     .st-key-card_ai button,
     .st-key-card_results button,
     .st-key-card_methodology button {
-
-        min-height: 145px;
-        padding: 1rem;
+        min-height: 150px;
+        padding: 1.1rem;
     }
 
     .st-key-card_subject button p,
     .st-key-card_ai button p,
     .st-key-card_results button p,
     .st-key-card_methodology button p {
-
-        font-size: 1.15rem !important;
+        font-size: 1.25rem !important;
     }
 
     .st-key-card_subject button::after,
     .st-key-card_ai button::after,
     .st-key-card_results button::after,
     .st-key-card_methodology button::after {
-
         padding: 1rem;
-        font-size: 0.98rem;
+        font-size: 1.05rem;
+    }
+}
+
+/* ACCESSIBILITÉ */
+@media (prefers-reduced-motion: reduce) {
+    .st-key-main_demo_button,
+    .st-key-card_subject button,
+    .st-key-card_ai button,
+    .st-key-card_results button,
+    .st-key-card_methodology button,
+    .st-key-card_subject button [data-testid="stIconMaterial"],
+    .st-key-card_ai button [data-testid="stIconMaterial"],
+    .st-key-card_results button [data-testid="stIconMaterial"],
+    .st-key-card_methodology button [data-testid="stIconMaterial"] {
+        animation: none !important;
+    }
+
+    .st-key-card_subject button:hover::before,
+    .st-key-card_ai button:hover::before,
+    .st-key-card_results button:hover::before,
+    .st-key-card_methodology button:hover::before {
+        animation: none !important;
     }
 }

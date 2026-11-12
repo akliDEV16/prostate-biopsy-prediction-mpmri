@@ -10,13 +10,14 @@ def render_footer():
     footer_html = """
     <footer class="app-footer">
 
+        <div class="footer-glow" aria-hidden="true"></div>
 
         <div class="footer-info">
             ProstaAI
             <span>|</span>
             Projet académique en intelligence artificielle
             <span>|</span>
-            Dataset : AI4AR Prostate mpMRI Database (CC BY 4.0) 
+            Dataset : AI4AR Prostate mpMRI Database (CC BY 4.0)
         </div>
 
         <div class="footer-bottom">

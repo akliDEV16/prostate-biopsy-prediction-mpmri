@@ -64,7 +64,7 @@ def encadre(titre, message, genre="info"):
 
 
 def jauge(nom, probabilite):
-    """Carte d'un modèle : probabilité estimée et position par rapport au seuil."""
+    """Carte d'un modèle : probabilité estimée animée et position par rapport au seuil."""
     pourcentage = probabilite * 100
     if probabilite >= SEUIL:
         libelle, classe = "Cancer probable", "demo-verdict-probable"
@@ -76,11 +76,12 @@ def jauge(nom, probabilite):
         <article class="demo-model-result">
             <span class="demo-model-name">{nom}</span>
             <div class="demo-probability">{pourcentage:.0f} <small>%</small></div>
-            <div class="demo-gauge" aria-label="Probabilité estimée : {pourcentage:.0f} %">
-                <div class="demo-gauge-fill" style="width:{pourcentage:.1f}%"></div>
+            <div class="demo-gauge" role="img" aria-label="Probabilité estimée : {pourcentage:.0f} %"
+                 style="--pct:{pourcentage:.1f}%">
+                <div class="demo-gauge-fill"></div>
                 <div class="demo-gauge-threshold"></div>
             </div>
-            <div class="demo-gauge-scale"><span>0 %</span><span>100 %</span></div>
+            <div class="demo-gauge-scale"><span>0 %</span><span>seuil 50 %</span><span>100 %</span></div>
             <span class="demo-verdict {classe}">{libelle}</span>
         </article>
         """
@@ -105,6 +106,31 @@ def valeurs_derivees(patient):
     )
 
 
+def resume_patient(patient):
+    """Pastilles récapitulatives des données saisies, pour relire le cas d'un coup d'œil."""
+    psa = float(np.expm1(patient["log_psa"]))
+    groupe = "TN" if patient["is_TN"] == 1 else "BN"
+    toucher = "toucher anormal" if patient["dre_result"] == 1 else "toucher normal"
+    if patient["no_of_lesions"] == 0:
+        irm = "aucune lésion à l'IRM"
+    else:
+        irm = (
+            f"{int(patient['no_of_lesions'])} lésion(s), PI-RADS {fr(patient['pirads_max'], 1)}, "
+            f"{fr(patient['dim_max'], 0)} mm"
+        )
+    morceaux = [
+        f"{int(patient['patient_age'])} ans",
+        f"PSA {fr(psa, 1)} ng/mL",
+        f"volume {fr(patient['prostate_volume_mri'], 1)} mL",
+        f"groupe {groupe}",
+        f"{int(patient['prior_biopsies'])} biopsie(s) antérieure(s)",
+        toucher,
+        irm,
+    ]
+    pastilles = "".join(f'<span class="demo-chip">{m}</span>' for m in morceaux)
+    st.html(f'<div class="demo-chips">{pastilles}</div>')
+
+
 # CHARGEMENT
 @st.cache_resource(show_spinner=False)
 def charger_modeles():
@@ -113,7 +139,7 @@ def charger_modeles():
 
 
 # CALCULS
-def valider(groupe, nb_biopsies, aucune_lesion, nb_lesions, dimension):
+def valider(groupe, nb_biopsies, aucune_lesion, dimension):
     """Renvoie la liste des incohérences de saisie (liste vide si tout est correct)."""
     erreurs = []
     if groupe == "BN" and nb_biopsies > 0:
@@ -316,7 +342,7 @@ def main():
             soumis = st.form_submit_button("Lancer la prédiction", type="primary")
 
     if soumis:
-        erreurs = valider(groupe, nb_biopsies, aucune_lesion, nb_lesions, dimension)
+        erreurs = valider(groupe, nb_biopsies, aucune_lesion, dimension)
         if erreurs:
             st.session_state.pop(CLE_RESULTAT, None)
             for erreur in erreurs:
@@ -354,6 +380,7 @@ def main():
             "Renseignez le patient dans la section 02 puis cliquez sur « Lancer la prédiction ».",
         )
     else:
+        resume_patient(resultat["patient"])
         colonnes = st.columns(len(MODELES), gap="medium")
         for colonne, (nom, probabilite) in zip(colonnes, resultat["probabilites"].items()):
             with colonne:

@@ -84,15 +84,19 @@ def carte_metrique(indice, titre, description, valeur=None):
 
 
 def style_graphique(fig, ax):
-    """Applique la charte graphique de l'application aux figures matplotlib."""
+    """Applique la charte graphique de l'application, avec des textes lisibles."""
+    plt.rcParams.update({"font.size": 13, "axes.titlesize": 15, "legend.fontsize": 12})
     fig.patch.set_facecolor("#FFFFFF")
     ax.set_facecolor("#FFFFFF")
     for bord in ax.spines.values():
         bord.set_color("#D3E5F4")
-    ax.tick_params(colors="#536B80")
+        bord.set_linewidth(1.2)
+    ax.tick_params(colors="#3F5A70", labelsize=13, length=0)
     ax.xaxis.label.set_color("#28649B")
     ax.yaxis.label.set_color("#28649B")
-    ax.grid(True, color="#E5EFF7", linewidth=0.8)
+    ax.xaxis.label.set_fontsize(14)
+    ax.yaxis.label.set_fontsize(14)
+    ax.grid(True, color="#E5EFF7", linewidth=1.0)
     ax.set_axisbelow(True)
     fig.tight_layout()
 
@@ -164,7 +168,7 @@ def bien_classes(y, proba, masque):
 # GRAPHIQUES
 def graphique_auc_par_decoupe(details):
     """Dispersion de l'AUC sur les 15 découpes, avec la moyenne de chaque modèle."""
-    fig, ax = plt.subplots(figsize=(7.5, 3.9))
+    fig, ax = plt.subplots(figsize=(8.6, 4.6))
     for i, nom in enumerate(TOUS_LES_MODELES):
         valeurs = details.loc[details["modele"] == nom, "auc"].to_numpy()
         decalage = np.linspace(-0.14, 0.14, len(valeurs))
@@ -178,7 +182,7 @@ def graphique_auc_par_decoupe(details):
 
     ax.axhline(0.5, color="#A9C9E4", linestyle="--", linewidth=1.2, zorder=1)
     ax.set_xticks(range(len(TOUS_LES_MODELES)))
-    ax.set_xticklabels([NOMS[nom] for nom in TOUS_LES_MODELES])
+    ax.set_xticklabels([NOMS[nom] for nom in TOUS_LES_MODELES], fontsize=13)
     ax.set_ylabel("AUC par découpe")
     ax.set_ylim(0.4, 1.02)
     style_graphique(fig, ax)
@@ -187,7 +191,7 @@ def graphique_auc_par_decoupe(details):
 
 def graphique_roc(y, probabilites):
     """Courbes ROC des deux modèles, calculées sur les prédictions hors pli."""
-    fig, ax = plt.subplots(figsize=(6.2, 5.2))
+    fig, ax = plt.subplots(figsize=(7.0, 5.8))
     ax.plot([0, 1], [0, 1], linestyle="--", color="#A9C9E4", linewidth=1.5,
             label="Hasard (AUC = 0,5)")
     for nom in MODELES_ETUDIES:
@@ -207,15 +211,19 @@ def graphique_roc(y, probabilites):
 
 # HTML
 def tableau_performances(resume):
-    """Tableau récapitulatif : moyenne ± écart-type de chaque métrique."""
+    """Tableau récapitulatif : moyenne ± écart-type, avec une barre animée pour l'AUC."""
     lignes = []
     for nom in TOUS_LES_MODELES:
         r = resume.loc[nom]
+        largeur = r["auc_moyenne"] * 100
         lignes.append(
             f"""
             <tr>
                 <th>{NOMS[nom]}</th>
-                <td>{fr(r['auc_moyenne'])} <small>± {fr(r['auc_ecart_type'])}</small></td>
+                <td>
+                    <div class="res-bar" style="--pct:{largeur:.1f}%"><i style="background:{COULEURS[nom]}"></i></div>
+                    {fr(r['auc_moyenne'])} <small>± {fr(r['auc_ecart_type'])}</small>
+                </td>
                 <td>{fr(r['balanced_accuracy_moyenne'])} <small>± {fr(r['balanced_accuracy_ecart_type'])}</small></td>
                 <td>{fr(r['accuracy_moyenne'])} <small>± {fr(r['accuracy_ecart_type'])}</small></td>
             </tr>
