@@ -1,23 +1,59 @@
 
 /* Titres de sections */
-
-.medical-section-heading {
+.ai-section-heading {
     display: flex;
     align-items: flex-start;
-    margin: 1.3rem 0 0.6rem;
+    gap: 15px;
+    margin: 2.2rem 0 1.2rem;
 }
 
-.medical-section-heading h2 {
-    margin: 0;
-    padding: 0;
+.ai-section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    background: #DCEEFF;
+    border-radius: 6px;
+
+    color: #28649B;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.ai-section-heading h2 {
+    margin: 0 0 5px;
     color: #28649B;
     font-size: 1.55rem;
-    font-weight: 650;
+    line-height: 1.3;
 }
 
+.ai-section-heading p {
+    margin: 0;
+    color: #71869A;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+    .ai-section-heading {
+        gap: 10px;
+    }
+
+    .ai-section-number {
+        width: 34px;
+        height: 34px;
+    }
+
+    .ai-section-heading h2 {
+        font-size: 1.3rem;
+    }
+}
 
 /* Liens vers les ressources */
-
 .resource-link {
     display: flex;
     align-items: center;
@@ -308,11 +344,13 @@
     border-radius: 10px;
 }
 
-.project-connection > div:first-child {
+.project-connection > div:not(.connection-plus):not(.connection-arrow) {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
+
 
 .project-connection span {
     color: #71869A;
@@ -326,7 +364,7 @@
     font-size: 0.92rem;
 }
 
-.connection-plus {
+.connection-plus, .connection-arrow {
     color: #438CCB;
     font-size: 1.5rem;
     font-weight: 700;
@@ -383,4 +421,47 @@
     .biopsy-list-item {
         gap: 12px;
     }
+}
+
+/* ==========================================================
+   ALERTES PERSONNALISÉES
+   ========================================================== */
+
+.medical-alert {
+    margin: 1rem 0;
+    padding: 1rem 1.2rem;
+
+    border-left: 3px solid;
+    border-radius: 4px;
+}
+
+.medical-alert strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.medical-alert p {
+    margin: 0;
+    color: #536B80;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.medical-alert-info {
+    background: #F4F9FD;
+    border-left-color: #438CCB;
+}
+
+.medical-alert-info strong {
+    color: #28649B;
+}
+
+.medical-alert-warning {
+    background: #FFF8EB;
+    border-left-color: #D6A64B;
+}
+
+.medical-alert-warning strong {
+    color: #956B24;
 }

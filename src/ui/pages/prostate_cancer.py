@@ -90,17 +90,38 @@ def display_svg(svg_content, height=350):
     )
 
 
-def section_heading(title):
-    """Affiche le titre d'une section."""
+def section_heading(number, title, subtitle=None):
+    """Affiche un titre de section numéroté."""
+
+    subtitle_html = (
+        f"<p>{subtitle}</p>"
+        if subtitle else ""
+    )
 
     st.html(
         f"""
-        <div class="medical-section-heading">
-            <h2>{title}</h2>
+        <div class="ai-section-heading">
+            <span class="ai-section-number">{number}</span>
+
+            <div>
+                <h2>{title}</h2>
+                {subtitle_html}
+            </div>
         </div>
         """
     )
 
+def custom_alert(title, message, kind="info"):
+    """Affiche une alerte personnalisée."""
+
+    st.html(
+        f"""
+        <div class="medical-alert medical-alert-{kind}">
+            <strong>{title}</strong>
+            <p>{message}</p>
+        </div>
+        """
+    )
 
 def resource_link(label, url, description=None):
     """Affiche un lien vers une ressource externe."""
@@ -202,6 +223,7 @@ def main():
 
     # 1. Anatomie de la prostate
     section_heading(
+        "01",
         "La prostate : une petite glande, un rôle important"
     )
     col_image, col_text = st.columns(
@@ -246,6 +268,7 @@ def main():
 
     # 2. Comprendre le cancer
     section_heading(
+        "02",
         "Qu'est-ce que le cancer de la prostate ?"
     )
     col1, col2 = st.columns(2)
@@ -292,11 +315,11 @@ def main():
         agressives.
         """
     )
-    st.warning(
-        """
-        La présence d'un facteur de risque, d'un PSA élevé ou d'une
-        anomalie à l'IRM ne suffit pas à confirmer un cancer.
-        """
+    custom_alert(
+        "À retenir",
+        "La présence d'un facteur de risque, d'un PSA élevé ou "
+        "d'une anomalie à l'IRM ne suffit pas à confirmer un cancer.",
+        kind="warning"
     )
     resource_link(
         "Comprendre les modifications de la prostate — NCI",
@@ -306,6 +329,7 @@ def main():
 
     # 3. Facteurs de risque et manifestations
     section_heading(
+        "03",
         "Facteurs de risque et manifestations"
     )
 
@@ -359,10 +383,12 @@ def main():
             "de symptômes, notamment à un stade précoce."
         )
 
-    st.warning(
+    custom_alert(
+        "Attention",
         "Les symptômes urinaires peuvent également être liés à une "
         "hyperplasie bénigne ou à d'autres affections. Ils ne permettent "
-        "pas, à eux seuls, de diagnostiquer un cancer."
+        "pas, à eux seuls, de diagnostiquer un cancer.",
+        kind="warning"
     )
 
     resource_link(
@@ -374,6 +400,7 @@ def main():
 
     # 4. Examens pré-biopsie
     section_heading(
+        "04",
         "Les examens avant la biopsie"
     )
 
@@ -434,9 +461,11 @@ def main():
             """
         )
 
-        st.info(
+        custom_alert(
+            "Lien avec ProstaAI",
             "Dans le projet ProstaAI, le résultat du toucher rectal "
-            "constitue une variable clinique parmi les données étudiées."
+            "constitue une variable clinique parmi les données étudiées.",
+            kind="info"
         )
 
     # IRM multiparamétrique
@@ -489,6 +518,7 @@ def main():
 
     # 5. Classification PI-RADS interactive
     section_heading(
+        "05",
         "La classification PI-RADS"
     )
 
@@ -590,6 +620,7 @@ def main():
 
     # 6. La biopsie prostatique
     section_heading(
+        "06",
         "La biopsie prostatique"
     )
 
@@ -658,6 +689,7 @@ def main():
 
     # 7. Conclusion et lien avec ProstaAI
     section_heading(
+        "07",
         "Pourquoi ces informations sont-elles importantes pour ProstaAI ?"
     )
 
@@ -689,9 +721,9 @@ def main():
                 <span>DONNÉES RADIOLOGIQUES</span>
                 <strong>PI-RADS, lésions, dimensions...</strong>
             </div>
-
+            <div class="connection-arrow">→</div>
             <div class="connection-result">
-                <span><strong> → </strong> PROSTA AI</span>
+                <span> PROSTA AI</span>
                 <strong>Estimation du résultat de biopsie</strong>
             </div>
 
@@ -699,12 +731,13 @@ def main():
         """
     )
 
-    st.warning(
-        "**Important :** ProstaAI est un prototype de recherche "
-        "académique. Il ne constitue pas un dispositif médical, "
-        "ne remplace pas l'avis d'un professionnel de santé et "
-        "ne doit pas être utilisé pour prendre une décision "
-        "diagnostique ou thérapeutique."
+    custom_alert(
+        "Important",
+        "ProstaAI est un prototype de recherche académique. "
+        "Il ne constitue pas un dispositif médical, ne remplace pas "
+        "l'avis d'un professionnel de santé et ne doit pas être utilisé "
+        "pour prendre une décision diagnostique ou thérapeutique.",
+        kind="warning"
     )
 
 # Exécution
