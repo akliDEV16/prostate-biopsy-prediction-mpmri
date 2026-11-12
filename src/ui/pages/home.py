@@ -66,19 +66,19 @@ def main():
     with col1:
         st.metric(
             label="Patients étudiés",
-            value=" "
+            value="462"
         )
 
     with col2:
         st.metric(
             label="Variables utilisées",
-            value=" "
+            value="10"
         )
 
     with col3:
         st.metric(
             label="Modèles étudiés",
-            value=" "
+            value="02"
         )
 
     st.divider()
