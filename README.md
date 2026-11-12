@@ -102,11 +102,11 @@ Le projet utilise la base **AI4AR Prostate mpMRI Database**, publiée sous licen
 
 Placez les fichiers suivants dans `data/raw/` :
 
-| Fichier | Contenu |
-|---|---|
-| `AI4A4_PCa_clinical.csv` | Une ligne par patient : variables cliniques et résultat de biopsie (cible) |
-| `AI4AR_PCa_radiological.csv` | Observations radiologiques : une ou plusieurs lignes par lésion, selon le radiologue |
-| `opis-medyczno-radiologiczny.pdf` | Dictionnaire des variables (document de référence) |
+| Fichier                           | Contenu                                                                              |
+| --------------------------------- | ------------------------------------------------------------------------------------ |
+| `AI4A4_PCa_clinical.csv`          | Une ligne par patient : variables cliniques et résultat de biopsie (cible)           |
+| `AI4AR_PCa_radiological.csv`      | Observations radiologiques : une ou plusieurs lignes par lésion, selon le radiologue |
+| `opis-medyczno-radiologiczny.pdf` | Dictionnaire des variables (document de référence)                                   |
 
 > Le nom du fichier clinique est écrit `AI4A4_…` (et non `AI4AR_…`) : utilisez exactement ce nom, comme dans le code.
 
@@ -114,8 +114,8 @@ Placez les fichiers suivants dans `data/raw/` :
 
 Le tableau final conserve les patients des groupes :
 
-- **BN** (*Biopsy Naïve*) : jamais biopsiés ;
-- **TN** (*Previous Negative Biopsies*) : biopsies antérieures négatives ;
+- **BN** (_Biopsy Naïve_) : jamais biopsiés ;
+- **TN** (_Previous Negative Biopsies_) : biopsies antérieures négatives ;
 
 dont le résultat de biopsie est connu. Le tableau contient **462 patients** : **248 avec cancer** et **214 sans cancer**.
 
@@ -123,18 +123,18 @@ dont le résultat de biopsie est connu. Le tableau contient **462 patients** : *
 
 Toutes sont connues **avant** la biopsie.
 
-| Variable | Description |
-|---|---|
-| `patient_age` | Âge du patient |
-| `log_psa` | Logarithme du PSA : `log(1 + PSA)` |
-| `prostate_volume_mri` | Volume prostatique mesuré à l'IRM (mL) |
-| `psa_density_mri` | Densité du PSA : `PSA / volume` |
-| `dre_result` | Toucher rectal : 0 = négatif, 1 = positif |
-| `prior_biopsies` | Nombre de biopsies antérieures |
-| `is_TN` | 1 si groupe TN, 0 si groupe BN |
-| `no_of_lesions` | Nombre de lésions décrites à l'IRM |
-| `pirads_max` | Score PI-RADS maximal parmi les lésions |
-| `dim_max` | Dimension maximale des lésions (mm) |
+| Variable              | Description                               |
+| --------------------- | ----------------------------------------- |
+| `patient_age`         | Âge du patient                            |
+| `log_psa`             | Logarithme du PSA : `log(1 + PSA)`        |
+| `prostate_volume_mri` | Volume prostatique mesuré à l'IRM (mL)    |
+| `psa_density_mri`     | Densité du PSA : `PSA / volume`           |
+| `dre_result`          | Toucher rectal : 0 = négatif, 1 = positif |
+| `prior_biopsies`      | Nombre de biopsies antérieures            |
+| `is_TN`               | 1 si groupe TN, 0 si groupe BN            |
+| `no_of_lesions`       | Nombre de lésions décrites à l'IRM        |
+| `pirads_max`          | Score PI-RADS maximal parmi les lésions   |
+| `dim_max`             | Dimension maximale des lésions (mm)       |
 
 **Cible** : `y_cancer` = 1 si la biopsie montre un cancer, 0 sinon.
 
@@ -199,11 +199,11 @@ L'application s'ouvre dans le navigateur (par défaut `http://localhost:8501`).
 
 ### Modèles comparés
 
-| Modèle | Prétraitement | Paramètres |
-|---|---|---|
-| **Réponse naïve** (référence) | Imputation médiane | `DummyClassifier`, stratégie `most_frequent` |
-| **Régression logistique** | Imputation médiane + `StandardScaler` | `max_iter=1000`, `random_state=0` |
-| **Random Forest** | Imputation médiane (sans mise à l'échelle) | 300 arbres, `random_state=0` |
+| Modèle                        | Prétraitement                              | Paramètres                                   |
+| ----------------------------- | ------------------------------------------ | -------------------------------------------- |
+| **Réponse naïve** (référence) | Imputation médiane                         | `DummyClassifier`, stratégie `most_frequent` |
+| **Régression logistique**     | Imputation médiane + `StandardScaler`      | `max_iter=1000`, `random_state=0`            |
+| **Random Forest**             | Imputation médiane (sans mise à l'échelle) | 300 arbres, `random_state=0`                 |
 
 ### Protocole d'évaluation
 
@@ -217,11 +217,11 @@ L'application s'ouvre dans le navigateur (par défaut `http://localhost:8501`).
 
 Résultats de la validation croisée (moyenne ± écart-type sur les 15 découpes), extraits de `results/cv_resume.csv` :
 
-| Modèle | ROC-AUC | Balanced accuracy | Accuracy |
-|---|---|---|---|
-| Réponse naïve | 0,500 ± 0,000 | 0,500 ± 0,000 | 0,537 ± 0,004 |
+| Modèle                    | ROC-AUC           | Balanced accuracy | Accuracy          |
+| ------------------------- | ----------------- | ----------------- | ----------------- |
+| Réponse naïve             | 0,500 ± 0,000     | 0,500 ± 0,000     | 0,537 ± 0,004     |
 | **Régression logistique** | **0,901 ± 0,036** | **0,822 ± 0,035** | **0,824 ± 0,034** |
-| Random Forest | 0,899 ± 0,023 | 0,821 ± 0,029 | 0,823 ± 0,028 |
+| Random Forest             | 0,899 ± 0,023     | 0,821 ± 0,029     | 0,823 ± 0,028     |
 
 **Lecture.** Les deux modèles atteignent des performances proches : l'écart d'AUC (0,002) est très inférieur à la variabilité entre découpes. Aucun ne se détache clairement de l'autre. Les deux dépassent nettement la référence naïve.
 
@@ -231,15 +231,15 @@ Pour l'analyse des erreurs, les courbes ROC et les matrices de confusion, voir l
 
 ## Application web
 
-| Page | Contenu |
-|---|---|
-| **Accueil** | Présentation du projet et accès aux sections |
-| **Comprendre le cancer** | Cancer de la prostate, biopsie, lecture de l'IRM et PI-RADS |
-| **Notre IA** | Données utilisées, variables, modèles et choix techniques |
-| **Démonstration** | Saisie d'un patient et estimation des deux modèles (résultat expérimental) |
-| **Résultats** | Métriques, comparaison, courbes ROC, matrices de confusion, analyse des erreurs |
-| **Méthodologie** | Étapes de préparation, apprentissage et évaluation |
-| **À propos** | Équipe, cadre académique et formulaire d'avis |
+| Page                     | Contenu                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------- |
+| **Accueil**              | Présentation du projet et accès aux sections                                    |
+| **Comprendre le cancer** | Cancer de la prostate, biopsie, lecture de l'IRM et PI-RADS                     |
+| **Notre IA**             | Données utilisées, variables, modèles et choix techniques                       |
+| **Démonstration**        | Saisie d'un patient et estimation des deux modèles (résultat expérimental)      |
+| **Résultats**            | Métriques, comparaison, courbes ROC, matrices de confusion, analyse des erreurs |
+| **Méthodologie**         | Étapes de préparation, apprentissage et évaluation                              |
+| **À propos**             | Équipe, cadre académique et formulaire d'avis                                   |
 
 Les avis envoyés depuis la page **À propos** sont ajoutés, sans nom ni coordonnées, au fichier `data/feedback/avis_prostaai.csv` (créé automatiquement).
 
@@ -265,10 +265,4 @@ Projet réalisé dans le cadre d'un travail académique à l'**Université Moulo
 - Mansouri Akli
 - Hachemi Dyhia
 
-
 ---
-
-## Licence
-
-- **Données** : AI4AR Prostate mpMRI Database, licence **CC BY 4.0**. Citez la base d'origine si vous réutilisez les données.
-- **Code** : *à compléter par les auteurs* (choisir une licence et l'indiquer ici, par exemple MIT).
