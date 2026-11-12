@@ -54,10 +54,9 @@ prostate-biopsy-prediction-mpmri/
     │   ├── clean_data.py
     │   ├── merge_data.py
     │   ├── prepare_data.py     # Tableau final, liste des variables, contrôles
-    │   ├── inspect_data.py
     │   ├── inspect_alignement.py
-    │   └── aklimansouri.py
     ├── features/               # Transformations apprises (imputation, mise à l'échelle, découpage)
+    │   ├── feature_extraction.py
     │   ├── imputation.py
     │   ├── scaling.py
     │   └── split_data.py
@@ -75,7 +74,7 @@ prostate-biopsy-prediction-mpmri/
 
 ## Installation
 
-Le projet a été préparé avec **Python 3.12** (les fichiers compilés présents dans le dépôt sont au format `cpython-312`).
+Le projet a été préparé avec **Python 3.12**.
 
 ```bash
 # 1. Cloner le dépôt
@@ -241,7 +240,7 @@ Pour l'analyse des erreurs, les courbes ROC et les matrices de confusion, voir l
 | **Méthodologie**         | Étapes de préparation, apprentissage et évaluation                              |
 | **À propos**             | Équipe, cadre académique et formulaire d'avis                                   |
 
-Les avis envoyés depuis la page **À propos** sont ajoutés, sans nom ni coordonnées, au fichier `data/feedback/avis_prostaai.csv` (créé automatiquement).
+Les avis envoyés depuis la page À propos sont transmis à Google Sheets via une API développée avec Google Apps Script. Les contributions sont enregistrées dans un onglet dédié, sans demander le nom ni les coordonnées des visiteurs.
 
 Les pages **Démonstration** et **Résultats** lisent les modèles et les résultats générés par `main.py`. Si `models/` ou `results/` sont vides, l'application l'indique et propose de lancer `python main.py`.
 
