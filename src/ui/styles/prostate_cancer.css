@@ -1,0 +1,386 @@
+
+/* Titres de sections */
+
+.medical-section-heading {
+    display: flex;
+    align-items: flex-start;
+    margin: 1.3rem 0 0.6rem;
+}
+
+.medical-section-heading h2 {
+    margin: 0;
+    padding: 0;
+    color: #28649B;
+    font-size: 1.55rem;
+    font-weight: 650;
+}
+
+
+/* Liens vers les ressources */
+
+.resource-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 8px;
+
+    color: #28649B !important;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none !important;
+
+    transition: color 0.2s ease;
+}
+
+.resource-link:hover {
+    color: #438CCB !important;
+    text-decoration: underline !important;
+}
+
+.resource-arrow {
+    font-size: 1rem;
+}
+
+.resource-description {
+    display: block;
+    margin-top: 3px;
+    color: #71869A;
+    font-size: 0.82rem;
+}
+
+
+/* Comparaison tissu normal / anomalie */
+
+.comparison-card {
+    height: 100%;
+    min-height: 150px;
+    padding: 20px;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 10px;
+}
+
+.comparison-card h3 {
+    margin: 0 0 8px;
+    color: #28649B;
+    font-size: 1.1rem;
+}
+
+.comparison-card p {
+    margin: 0;
+    color: #536B80;
+    font-size: 0.94rem;
+    line-height: 1.55;
+}
+
+
+/* IRM multiparamétrique */
+
+.irm-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.irm-feature-grid div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 17px 12px;
+
+    background: #F4F9FD;
+    border: 1px solid #D3E5F4;
+    border-radius: 8px;
+
+    text-align: center;
+}
+
+.irm-feature-grid strong {
+    color: #28649B;
+    font-size: 1.1rem;
+}
+
+.irm-feature-grid span {
+    color: #536B80;
+    font-size: 0.82rem;
+}
+
+
+/* Classification PI-RADS */
+
+.pirads-detail {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin: 18px 0;
+    padding: 22px;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 10px;
+}
+
+.pirads-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 68px;
+    height: 68px;
+
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 2rem;
+    font-weight: 750;
+}
+
+.pirads-level {
+    color: #536B80;
+    font-size: 0.86rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.pirads-detail h3 {
+    margin: 5px 0;
+    color: #28649B;
+    font-size: 1.2rem;
+}
+
+.pirads-detail p {
+    margin: 0;
+    color: #536B80;
+    line-height: 1.5;
+}
+
+
+/* Biopsie */
+
+.biopsy-card {
+    height: 100%;
+    padding: 22px;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.biopsy-card:hover {
+    border-color: #438CCB;
+    transform: translateY(-3px);
+}
+
+.biopsy-card h3 {
+    margin: 15px 0 8px;
+    color: #28649B;
+    font-size: 1.2rem;
+}
+
+.biopsy-card p,
+.biopsy-card li {
+    color: #536B80;
+    font-size: 0.94rem;
+    line-height: 1.55;
+}
+
+.biopsy-card ul {
+    padding-left: 20px;
+}
+
+
+/* Parcours du prélèvement au résultat */
+
+.biopsy-list {
+    position: relative;
+    margin: 10px 0 16px;
+    padding: 2px 0;
+}
+
+/* Ligne verticale reliant les étapes */
+
+.biopsy-list::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    bottom: 22px;
+    left: 17px;
+
+    width: 2px;
+    background: #D3E5F4;
+}
+
+/* Chaque étape */
+
+.biopsy-list-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 15px 12px 15px 0;
+
+    border-bottom: 1px solid #E5EFF7;
+
+    transition:
+        background-color 0.2s ease,
+        padding-left 0.2s ease;
+}
+
+.biopsy-list-item:last-child {
+    border-bottom: none;
+}
+
+.biopsy-list-item:hover {
+    padding-left: 5px;
+    background: #F8FBFE;
+}
+
+/* Numéro de l'étape */
+
+.biopsy-list-number {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    background: #DCEEFF;
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+
+    color: #28649B;
+    font-size: 0.85rem;
+    font-weight: 750;
+}
+
+/* Contenu de l'étape */
+
+.biopsy-list-content {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+}
+
+.biopsy-list-content strong {
+    display: block;
+    margin: 2px 0 6px;
+
+    color: #28649B;
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+.biopsy-list-content p {
+    margin: 0;
+    color: #536B80;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+
+/* Connexion avec le projet ProstaAI */
+
+.project-connection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 22px 0;
+    padding: 22px;
+
+    background: #F4F9FD;
+    border: 1px solid #D3E5F4;
+    border-radius: 10px;
+}
+
+.project-connection > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-connection span {
+    color: #71869A;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.project-connection strong {
+    color: #28649B;
+    font-size: 0.92rem;
+}
+
+.connection-plus {
+    color: #438CCB;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.connection-result {
+    padding: 14px;
+    background: #E1EFFB;
+    border-radius: 8px;
+}
+
+
+/* Séparateurs et espacements généraux */
+
+.stApp hr {
+    margin: 1rem 0;
+    border-color: #D3E5F4;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .medical-section-heading h2 {
+        font-size: 1.3rem;
+    }
+
+    .irm-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pirads-detail {
+        align-items: flex-start;
+        gap: 15px;
+        padding: 16px;
+    }
+
+    .pirads-score {
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+    }
+
+    .project-connection {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .connection-plus {
+        text-align: center;
+    }
+
+    .biopsy-list-item {
+        gap: 12px;
+    }
+}
