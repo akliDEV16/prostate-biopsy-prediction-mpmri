@@ -582,3 +582,76 @@
         transform: none;
     }
 }
+
+/* LIENS CLIQUABLES */
+
+/* Pastilles de liens sociaux sous chaque membre de l'équipe */
+.about-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.about-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: #EAF4FC;
+    border: 1px solid #C9E0F3;
+    border-radius: 999px;
+    color: #28649B !important;
+    font-size: 0.95rem;
+    font-weight: 650;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-social-link:hover {
+    background: linear-gradient(120deg, #438CCB, #28649B);
+    border-color: transparent;
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(40, 100, 155, 0.25);
+}
+
+.about-social-link:focus-visible,
+.about-link-card:focus-visible {
+    outline: 3px solid #8BB9DF;
+    outline-offset: 3px;
+    border-radius: 16px;
+}
+
+/* Carte entière cliquable (université, club) */
+.about-link-card {
+    display: block;
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+.about-link-card:hover .about-university-card,
+.about-link-card:hover .about-club-card {
+    transform: translateY(-4px);
+    border-color: #8BB9DF;
+    box-shadow: 0 14px 30px rgba(40, 100, 155, 0.12);
+}
+
+.about-card-cta {
+    display: inline-block;
+    margin-top: 12px;
+    color: #2F7BBE;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.about-link-card:hover .about-card-cta {
+    color: #28649B;
+    transform: translateX(4px);
+}
+
+.about-link-card:hover .about-university-details h3,
+.about-link-card:hover .about-club-details h3 {
+    color: #438CCB !important;
+}
