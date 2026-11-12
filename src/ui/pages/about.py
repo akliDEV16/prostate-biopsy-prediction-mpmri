@@ -1,7 +1,4 @@
-import csv
-from datetime import datetime
-from pathlib import Path
-
+import requests
 import streamlit as st
 
 from src.ui.styles import load_page_css
@@ -15,11 +12,47 @@ MIRAI_LINKEDIN_URL = "https://www.linkedin.com/in/mirai-club-505a90441/"
 GITHUB_REPO_URL = "https://github.com/dyhia-hachemi/prostate-biopsy-prediction-mpmri"
 GITHUB_LOGO_URL = "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
 
-# Le fichier est créé automatiquement dans data/feedback/.
-FEEDBACK_DIR = Path.cwd() / "data" / "feedback"
-FEEDBACK_FILE = FEEDBACK_DIR / "avis_prostaai.csv"
-CSV_FIELDS = ["date_heure", "avis"]
 
+# ENREGISTREMENT DES AVIS DANS GOOGLE SHEETS
+def save_feedback(avis, propositions):
+    """
+    Envoie les avis et propositions vers Google Sheets
+    via Google Apps Script.
+    """
+
+    # Récupérer l'URL depuis les secrets Streamlit
+    url = st.secrets["google_sheets"]["web_app_url"]
+
+    # Préparer les données
+    payload = {
+        "avis": avis.strip(),
+        "propositions": propositions.strip()
+    }
+
+    # Envoyer les données à Google Apps Script
+    response = requests.post(
+        url,
+        json=payload,
+        timeout=20
+    )
+
+    response.raise_for_status()
+
+    # Lire la réponse du script
+    try:
+        result = response.json()
+    except ValueError as exc:
+        raise RuntimeError(
+            "La réponse de Google Apps Script est invalide."
+        ) from exc
+
+    # Vérifier si l'enregistrement a réussi
+    if not result.get("success"):
+        raise RuntimeError(
+            result.get("message", "Échec de l'enregistrement.")
+        )
+
+    return True
 
 # LOGOS (intégrés au fichier : aucun dossier d'assets nécessaire)
 UMMTO_LOGO_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACUCAMAAADMOLmaAAABC1BMVEX///8ABAcAAAANgAD///346wAAewAAAAMAdwAAeQAAfQAAdQD8/Pzt7e3z8/P29vZRUVHb29vi4uLLy8tmZmY0NDQ5OTnT09OioqK5ubkAcQC/v7+Dg4OUlJQ/Pz+Li4uurq4jIyMqKip7e3tzc3MRERFJSUleXl5wpm757jX++9r+/OQcHBz+/fD9+Lb57SQ2ijX9+cD79I12uGr68FX68Wz9+s767kf68WH8+K3i8eEchBu91rynyqeZwZft9ez89pv6837R48+GuIVIlEa22LZdmlxOnUHY8NVXoVQogyZys2+o0qZQllGWyJU3kzUIjADe78V8qxUyggDd3gDe7ZctlyCCvoAAYQDKGj+/AAAUPUlEQVR4nO1cCVvqSpOOTYclEPZVEBBBZAkIH6sbi8s96jnX2e/8/18yVZ2FTtKJ4FHvzDNfPY8iWd/UXtUVJen/MVGvzR47vp9obHW1vb27MOj+9na7XcX+fngGgtXN7cWDEo1Gw8FgJBIJBpUIfIkqzxe3N1tqP/ZvQLh6vPilRIJKQCdFMf+CvwHv9dP9TeJvAafT1faP8LGBTlGCYUW5vkR6CYbDQR2rEoweX/+5XX07F/F2P+7fgkGGIhINRwMPINSb7RXS9ub29uLpEjbr+8PK090Kz/pOlLEfz9eMe0Hl+vkOkCUS9tvTWAIU9NdLkB2lBF8urr6Tj/TmVxTZEwwH7m+3gv2cGd09KRHkJBx69W0AfzwpiC8c/uPm6n22rLb3waiCfHy7X30DOrCP++MgKt/lfjzBR6B3D0zYkeu7LxY0Su/nZQSVP3DH8O2j/HjM6vYtivoYRXX8On2EC1/9AmaA3t8dJi84M3H7wlT3+uaL0DFW0Dv0H+Fr3XccdDL8XN2hj1Sid18Vr6n04xkVMPp8mE3W09YVtkzUwftPx2bQI/q2yOXjISxInxCSMf5GITBRR1+/xqbvrxV8/kM0XT3JEZJUTYR43hYNLfz6BYKmr+DTlMjPA05J1E8JUMm+dfXEIH6yQVPp6hmuG3z7sf858XqDkKMjkow5LrV6iCiB49dP5uHqOQwP/nKAidSTiA8Qnrh2Xf2Ciyl/fioTf7whB59X+140Xgb5ho5QxkR17oRroECO//w0eCBiBHi8d1CNldqMf4ScJElWdMTVA7qtx0/j4tUDSCXyuu/h5XPCAIZIRWpbrsZO20swu8DNp2SMVNq+AAcj93S/y5WzOj5gYVZKnTZjooPgohEMnp+Tjq0uQSLHe+Yk6TMDHnCwmpaKTlezozvU7E/x3FcPmMr83Md9JdJNggaiA2yoUjzZ8DyY3qNb/O34x5wXcPB2Hw5mmn3ApwM8Yo46I3A1Fq1eUBV//K610CcwkujFHpeJn7VM/jEWnoECnrfSnsdT6QayiPDz7wK8QEd9QSWhvtuoSEwG4i/ShjNSDKYnQibn4ONv4ZPu8DEv97G4dIsU+4yHDOARMq9Gir7nbF/0MPAb9AjJQvABLvFu2yB2RpqJc8OMASB6wXQ+Gfc7R2fA8YeZiIkS6HLw7UqKFZtiv7ujdP60INWJaSWMd3VSf+cOKxTR20dtBfQEHKEShmpYrbpSKCedkDboXV4XMznDTYlTImZhLJNMGX/eox1+zG1jUXcBTxi5hT/jGMZ8VSpNSAE+mLsOkWQCL1CHoCcgtd7exWqU0gd9IgS4W4x1LItL5cgRafm4NqlCzvGjyBKa0wLblhWG5AwkZS1rB2azwacPSvkGA+fDSr8xU66ap70UWi2GClgZIob2FVptt5AzVTyCi9U3wIaXA9JijlbXGI1ZaZvIEt0Ji7MAOODMdHyoDkwJJSpwNemanjSmdptYYPmQNdOLXdRU+8SIE1mx6meIzkI0X/MYNd9wsFytNfSsscndRoKQEL77CMJbMLLg08oAYPm5akp08E71U628amK1662qVy1wDXskvI0GIhcHKyI4Kmx9HBtuoGgCRIiiQKsbMlIia3qlKrE9TLlqPiap2HTlMRoI/svhCFk4jphJenaH8Ij0y86jQU0rxmm7jXUeSKzcsJIK0rCL4QrrvsNN5YYpoZlUn3IIwZc4fXe51SgYCC2IiSbZPUmqwiU9dvsBab0phkEeQqtfET0cM9qpoX6LVt12cKwp8MyF/rlpVPHKKXcBV+lHXyMfqPrujkHGWzNcnljX15MrcIw2MIQY8uRUtGJ6a7V+antAlwvCFCzyfGBoRtWI3ptpv5o0fA0AJEbc5W+TNYw2XWlb21TS0v/IJB0CyLss7RHTp8MAopkoD1Y4T1WNyi3E6nMdYtNyjCVyjnJTQddQ81SGoMbYHCv3OQUUsxB0HkPXIfAgml9DvrFrIJX0m4R0gGah2TTUCQwZbhov5gipqpgm5hBmHj14uuLEB2bmDpw3wcN4COb4GlEiD7vmWc2qLjmEkOXr4iqQRiJRy8NmxrZ0H9O0EskmUmc5S8AehmwhBD3cg3MWPR4HlGsuZWtYAcWSMsN7yiCek2adbSWtMnsckozHk+SkTjgFNBGSc0HUBClHX/exFG20Hm/G68G/XtoDpUoECFkpUi0wT2SwikWbGB5RButu2Q3EfCpRjgk8jP7DHyHs1GYT2aT/+Ld/f+KKm7p1KxMg+BzD62RUqEwMrrKUBuMjabfJUciNDzuJgvSNQprtjxB3Ib7OdD0ajZabOWD8Ty6C1WwIdUs+MiFmuVhRMB2Tk307IYgqCUyi3uXheih3Bpp+DNVGgHGjmTvj5zaEurBC7Av+2gEkkmX2plDNSGwe0hall4lnJmVfgGNZXmuITTJQLofyRDOeqtBw8fDI5URwG0S+XTVq451lW66cA+kqyCzFl4MAUJK6s8GmN5lJI+TeCLhoiLnOh1TLG7oQstsX7Nstsze+Jl3NWIYwDJnDTz8pdxlAaTCcDztzqskzbd2TRkN5yfbGKg6EuiK6DJXdPmnbbAo5ZPbChCzUs68bP4QTeQK2DKA6cqcnzTqDBUhYWssdJmfVLmSjtxpy8RBjc+pU4GF2Rwi7xRQzWCXg19KYyXIXxDoHJRyOKXB0OITv8EUeIMIybwuWmN0Aob7k2S0ASIT1A8UqQPkvP0sey1P0h0MQ6nhCtUVnMZki92A77nYIeSdCx/2rEPD8WVjxqBP/girgDz9vuACF606766EmdcfaZtjTNE3nLYhZiuV4hBwsJ8KKrZoRAOwXxACwGg37daB7c3kkaeNhR14se4CrhxsHoJDdznAGatgSs82hiFhJJURxbndEzQPAY4QVRN7U7QBC2p3Li/Fixpo1Gl2iHesIiwLPp0Oyf4VwVvfXQo9eLCvLXwSjHHYejuRpV6N63TTuzIfyfKN1h4jQQ/kdADEjSGT9tdDj/leXyjt9Gw31UOtiNNGmS6lHe7O1vB7NdD1M5fZCSKDWy/R9EApyf4OwcXDs12xHm93A7mUHpNzp0vkINk7nEjrECfX0cM7UPhn34rZxgEfbjEqXkGAH/BdCRvIQrIPOIF2Az8kYNvUWPYmyoHLicVunJRellIfC6vv7wngH9OMYV0LeSb3m8gaFPV8OwagnnYGRPMjgfqTmnmqoeh1pPYHH7V/5utyLIKiANc+0ntztQmgeboCBaOJr8IZ+usUBqErphp8WVr1Y+Kj4rVZYpdJaHg7gozsdDMcjuTvpUIjOMgQWKe0nOg5B3VMdkEKe/fbVW9BvxQebLHSw2YynQxljHoSXMTCUgmEDQJSxf5TYATxNqVVfQxazkEo/jwPvNJUgxxrO5+D/IGOdsVinQbrQm8rygiU2vsq1Q9CM+XtrLy1kLPzLGx7FPHXdBT84m0JCIy/Wg263O1oDPky5KS6R7IMQ3bWvFnqFE+kuHFAutz6GDFFjJOnLEmuEKMMv/C2Pu7qDKrf2QUj6qcLHWPgA4eQvPy0cs9waJLveSAt5NFtvptPpZs3KAFYC1Pa1ZL+A55H76ywMBPWRFjFM2pG17nrUnU0gAI9YNmh2KPXf/pGW41HKJeSdC/A0ZEpxrSFw7TPCSGVZmi06MpZ1Ug9KAeeDpC0h+/kcyJ13vLaqOp7DHrQ9DrD52MjLxdabh5AtdDprCd22G6HVenVXJTzC9q5tYiDkyhjiUT6hN77W55ABY0S8WkE3EHnX894Yq4AN6KQToZUb+gk7REo7VxMi/Ac7NetdI/0ZNYfLlaig1gONmw07WDOtF+h3OprzmIRH5uVgYT6TdyLc8ZRbwBOw6PbXdZgNGUNgER8BFSeEu9kAuyJL1+64gHeCLdkSXw06EWZ9hw9W25uLADLSs8O5luWOHvUG7p1Fd3/y6JQHx7SN1CvElKrZceLaecIK1EaPbDT2wctvz8aQFnYW667AJbm9IamW+GQnxBYRIbdu7fJcs3tnfPPK/Q1C56ZBrReI/uXlEqFu6vU0TbRPTboRFuM8Qtb8atYIOc9YNpVkDUSzkXz6PgtZNeqz4mM6aMEDuOsO0sDFOg5gCHsxbETTUsBMGv40pe5ZgfKE1ShU9J4TZd5R253xYX+SEz3O1pDkCcF+TMWcRIvFsf9qNGWJRxHP3331C+d2b/d4FCfFzl0sbCZ43PpK8VmStFTsbCIstshcI6bD3ouFOBMUefrIxE3c1eplrq1smWkW3GCo3+6z1CXNfCdJSlxCRBreA1UG6Tms8rFZkZKLhcwuzdV60kqjJZEWYbMMzKz0seu4qarvjCsx+oHj08deMvZfwHD6GtJnvtdoJxKjNAmZ6SlGSP0ZYm3jGc69sq4dXeFgIxsEEIBhVYr3uapDDdlKCBwfNxBCCc9U0tQ1CCz6io9V3LzPQiq9htFbX9D32CWigiPlQ2HCQ9GYjgtjBZvBMRkVzxFzviKl25Bn1rWjbZjlX8ELlx4i5tFyvdSzaeHJjp4X60EjQqojRDDpKuHWmJpWOcK8QOi9ISwkHEvT305ylMyAaaCvQM2XXtytOVnITqQ4KRUy+kTxJEQTKzEo7UZU8CG8c3+O7tkbNezHUZJqG0gYlqPluINVp4gc9S8USyZCFUd+6gYSroor79xzGReiPRJXG91chxWGMHBsX/GBEmo+g89erzthjS83FWzeMGS2rgAhcs5o6hf5xEDdzXil4SGSewAERby/jgSN/JDHMcNVCbjdfCxp2N8UkL3ZwDsO5KHBuRN+LCWWZVIu1EH87ffjnUn06h9BJw+pNIV0lWJbDnKuATa+3GSv8mwiqyDnMnGcTqrzp9TReBPJJHs+r/kwAaHTVsK8HlKpg41CadTBdbGuPBecpdqEbE+Ui1UVGHkCTMvZHEEZWZvBRebYmV/u7yQckbR3l6g0lLXeVB7KWKX0hAjLPEJHlnfSREtvx0okFeMX3NXzDDoa8DIZY3huL7q5BlO+tpkyleZyt7cedDabuWRU8k6y+RpHilJIoh01yvmaVOcLuXiyiTsAYZaoe8eIKzZC6HxtaIkLebOh1h0uqdBS1LaNhY56MlfIYZKaUyV7z6h4zhbsi/V9UgaDVq8RKJddA0vaRB5rFBfzlhvWyHRSmgvK7uBAqqxaKuGoIW+ypaN2C3Pahmff30VssCf4083wLujgiFJt2WErYy7iVhv1gGzbm2Qr9O1YqlE950YdcU1Kj9l+47J2+gkcjAqbxNqGdeHkzlr4ygmf6oNZOmoIVis1ChCJ43WbY9ZTR5Lf29PchJXIg0cLlnaXm8140NPf8XOA5PvraJaO/YifLU/UpJItjdYrhHeGxDlaPUXCbx4vd1JnRmb7wvUryZE7Aci0CKZWOQg08Rzv+JhyePf9XfRTwXF5sdlTfQ2PFdSYhs1siLlhPpFZQlAD0dcx0MQa/H40ZfHMjwiCJL2FlT1ekwJjwe7wZMZt2/XXhZk8+KJsLN1n6cMJH96wWBGOTYkRrsLR+3f9praQO+NZdzCVueacavWy0NPYlJCy/CsJrjDbYkhKbd5ZgobunTJghzPyXhGKq46TXm+EGTdbl9KxpK2uHKnG3AhprFQGVa2zDQVb66hISG5vgNL2v98ftqfYIMb1eIoZmXm4lXk5cyiGjx0VPzfm6RN53lSgWNkncTUvF3i/07CWBwiTrUdNzfCXOLMQ4iA9x0MLIDyEWZMkeZ8dz/m8c+TER6Wt38o8I23CerDj4XQ8A7RGj9MqANgbEsJCMbVLXoptbnuptb8W7kXanAkYipUplC0mQqu/rvuNjLvBFmvkLBMvce/IqDaGfgJRsOQZZtmdDZQslpRNb0hyaKaqoD3EJy+pRobbvnfKsC8toY7SJpAqoqWwSSUJp0YNT1OXdN/ndHDp6vnOxahVK/VJHJAy7EcUBTymPUp7kC3qtcuu56UjqxB3K7rCb0m0LUWsiQY0f5cgDVsse9oMUp21salkThjqvTjiWtmM2+VeMhGmG/XPB0itNGwyM03WyLxYByF1SqrnjkAba9sjYd2sYprer7D+HnWX6/F6ZuWxRs+LHKXYO4L9TIHYDbTscMpxo5JP7dOo+QzK6B1UJskivgAXr9reuVOrzjoup9tH2+P9pN8mavswZ0pZgxeUsMJmOHlTOXMljElWTZc/21l7kq6G6DfSed2ci7xlpNzusY7/rSHeFg5ofgHpvobkWTtYfytVze/kmmhXXbLMYH5RdP9HhC8ilZjdyYrpCOPVJBfj3OaQzsNxn+6sPYmpIRagRbMrDWHQUrFEP+nOXdRkViq+vzDxIRLkj1lj0aHc2pVsBcu/1EQZdDybTztenPoM6nW7PcFmNm5IslKiwXvBltHITPWFi0z1XI18NrwxiyPDgavfgKuNpK/GsrYGYFP/ksi2hPlpiXj814sPEQq225GHm/VaH52yE1u3qcGHrU9uZNQZj1pdbezTVT+AAOCYrVL0FmwSmyMIc5AWpgukYfMpGWbVsZzHUEUs+YksxFJjIa9x8J+yWtQ+PIADNqSo5h2vTabzqIhFr8Zq7FPtmEo9WZbofAJ2omkzeWFjYgpyrb6adbYNWHaf6n9X1FjKYwA6kRey3OkN7c05/J8g5Zq7x1s8TUvtb4saY5ZMQ+q6BH+jz0GalMgRnE1pugJb/TRd+q6oQbE2YQg7YMiavcEJQu7XzwXvJ8dylbzP7NEnIwQ9pLjo010MoEYe83pYIOSs2RKNdzQwSB++wPpBjFNcKJvNJY3O2Fz9jk5IKynOlM/Eb798EfXASiDr13pr2e5s1KS1puikdPa7zIQRQJQnm2lH7thnvVINcshSzdcRlehoMRwO52tHzCsSr/+F8N3EmtgstbHrfs3jPyH8r6F4a49Bt7+VYuWvyZP/Sf+k/3v0P/tp0E2vU3I0AAAAAElFTkSuQmCC"
@@ -233,33 +266,61 @@ def main():
         </div>
     """)
 
+    
+    # Formulaire des avis et propositions
     with st.form("prostaai_feedback_form", clear_on_submit=True):
+
         feedback = st.text_area(
-            "Votre avis ou proposition d'amélioration",
+            "Votre avis",
             placeholder=(
-                "Ex. : Ajouter davantage d'explications sur le fonctionnement "
-                "du modèle, améliorer la navigation..."
+                "Qu'avez-vous pensé de ProstaAI ? "
+                "Votre expérience, vos remarques..."
             ),
-            height=150,
+            height=120,
             max_chars=2000,
         )
+
+        suggestions = st.text_area(
+            "Vos propositions d'amélioration",
+            placeholder=(
+                "Quelles fonctionnalités ou améliorations "
+                "aimeriez-vous retrouver dans ProstaAI ?"
+            ),
+            height=120,
+            max_chars=2000,
+        )
+
         submitted = st.form_submit_button(
-            "Envoyer mon avis", type="primary", use_container_width=True
+            "Envoyer ma contribution",
+            type="primary",
+            use_container_width=True
         )
 
         if submitted:
-            if not feedback.strip():
-                st.warning("Veuillez écrire un avis ou une suggestion avant l'envoi.")
+
+            if not feedback.strip() and not suggestions.strip():
+                st.warning(
+                    "Veuillez renseigner au moins un avis "
+                    "ou une proposition."
+                )
+
             else:
                 try:
-                    save_feedback(feedback)
-                    st.success("Merci pour votre contribution ! Votre avis a bien été enregistré.")
-                except OSError:
-                    st.error(
-                        "L'enregistrement a échoué. Veuillez réessayer ou prévenir "
-                        "un membre de l'équipe."
+                    save_feedback(feedback, suggestions)
+
+                    st.success(
+                        "Merci pour votre contribution ! "
+                        "Votre réponse a bien été enregistrée."
                     )
 
+                except Exception as e:
+                    st.error(
+                        "L'enregistrement a échoué. "
+                        "Veuillez réessayer."
+                    )
+
+                    # Détail technique utile pendant le développement
+                    st.caption(f"Détail technique : {e}")
 
 if __name__ == "__main__":
     main()
