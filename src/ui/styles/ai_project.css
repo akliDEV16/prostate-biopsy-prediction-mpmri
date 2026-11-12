@@ -1,0 +1,932 @@
+
+/* ==========================================================
+   PROSTAAI — PAGE NOTRE INTELLIGENCE ARTIFICIELLE
+   Palette : Glacier Blue
+   ========================================================== */
+
+
+/* ----------------------------------------------------------
+   TITRES DE SECTIONS
+   ---------------------------------------------------------- */
+
+.ai-section-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 2.2rem 0 1.2rem;
+}
+
+.ai-section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    background: #DCEEFF;
+    border-radius: 6px;
+
+    color: #28649B;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.ai-section-heading h2 {
+    margin: 0 0 5px;
+    color: #28649B;
+    font-size: 1.55rem;
+    line-height: 1.3;
+}
+
+.ai-section-heading p {
+    margin: 0;
+    color: #71869A;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+
+/* ----------------------------------------------------------
+   INTRODUCTION
+   ---------------------------------------------------------- */
+
+.ai-intro-panel {
+    display: grid;
+    grid-template-columns: 1.5fr 0.8fr;
+    align-items: center;
+    gap: 2rem;
+
+    padding: 2rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 9px;
+}
+
+.ai-intro-content {
+    min-width: 0;
+}
+
+.ai-eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+
+    color: #438CCB;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+}
+
+.ai-intro-content h3 {
+    margin: 0 0 12px;
+
+    color: #28649B;
+    font-size: 1.7rem;
+    line-height: 1.35;
+}
+
+.ai-intro-content p {
+    margin: 0;
+
+    color: #536B80;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.ai-intro-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1.3rem;
+}
+
+.ai-intro-tags span {
+    padding: 6px 10px;
+
+    background: #EAF4FC;
+    border: 1px solid #D3E5F4;
+    border-radius: 5px;
+
+    color: #28649B;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.ai-intro-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem;
+}
+
+.ai-visual-node {
+    width: 100%;
+    max-width: 220px;
+
+    padding: 12px;
+
+    background: #EAF4FC;
+    border: 1px solid #C9E0F3;
+    border-radius: 6px;
+
+    color: #28649B;
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-align: center;
+}
+
+.ai-visual-model {
+    background: #438CCB;
+    border-color: #438CCB;
+    color: #FFFFFF;
+}
+
+.ai-visual-line {
+    width: 2px;
+    height: 24px;
+    background: #A9C9E4;
+}
+
+.ai-visual-output {
+    width: 100%;
+    max-width: 220px;
+
+    padding: 13px;
+
+    background: #F4F9FD;
+    border: 1px solid #D3E5F4;
+    border-radius: 6px;
+
+    text-align: center;
+}
+
+.ai-visual-output span,
+.ai-visual-output strong {
+    display: block;
+}
+
+.ai-visual-output span {
+    color: #71869A;
+    font-size: 0.75rem;
+}
+
+.ai-visual-output strong {
+    margin-top: 4px;
+    color: #28649B;
+    font-size: 1rem;
+}
+
+
+/* ----------------------------------------------------------
+   CARTES INFORMATIVES
+   ---------------------------------------------------------- */
+
+.ai-info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+
+    height: 100%;
+    min-height: 135px;
+
+    padding: 1rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ai-info-card:hover {
+    border-color: #8BB9DF;
+    transform: translateY(-2px);
+}
+
+.ai-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 32px;
+    height: 32px;
+
+    background: #EAF4FC;
+    border-radius: 5px;
+
+    color: #438CCB;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.ai-card-content {
+    min-width: 0;
+}
+
+.ai-card-content h4 {
+    margin: 2px 0 7px;
+
+    color: #28649B;
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+.ai-card-content p {
+    margin: 0;
+
+    color: #536B80;
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+/* Cartes de variables : le détail technique apparaît au survol */
+.ai-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+}
+
+.ai-feature-card {
+    position: relative;
+    display: flex;
+    min-height: 112px;
+    padding: 1rem;
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    outline: none;
+}
+
+.ai-feature-card:hover,
+.ai-feature-card:focus-visible {
+    border-color: #8BB9DF;
+    transform: translateY(-2px);
+}
+
+.ai-feature-front {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ai-feature-front h4 {
+    margin: 0;
+    color: #28649B;
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+.ai-feature-hint {
+    color: #8A9BAA;
+    font-size: 0.76rem;
+}
+
+.ai-feature-tooltip {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding: 1rem;
+    background: #F4F9FD;
+    border: 1px solid #8BB9DF;
+    border-radius: 7px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.ai-feature-card:hover .ai-feature-tooltip,
+.ai-feature-card:focus-visible .ai-feature-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ai-feature-code {
+    align-self: flex-start;
+    padding: 4px 7px;
+    background: #E1EFFA;
+    border-radius: 4px;
+    color: #28649B;
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 650;
+}
+
+.ai-feature-tooltip p {
+    margin: 0;
+    color: #536B80;
+    font-size: 0.86rem;
+    line-height: 1.5;
+}
+
+
+/* ----------------------------------------------------------
+   NOTES ET INFORMATIONS IMPORTANTES
+   ---------------------------------------------------------- */
+
+.ai-note {
+    margin: 1rem 0;
+    padding: 1rem 1.2rem;
+
+    background: #F4F9FD;
+    border-left: 3px solid #438CCB;
+    border-radius: 4px;
+}
+
+.ai-note strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #28649B;
+    font-size: 0.95rem;
+}
+
+.ai-note p {
+    margin: 0;
+
+    color: #536B80;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+
+/* ----------------------------------------------------------
+   BASE DE DONNÉES
+   ---------------------------------------------------------- */
+
+.ai-class-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0.9rem 0 0.4rem;
+
+    color: #536B80;
+    font-size: 0.9rem;
+}
+
+.ai-class-row strong {
+    color: #28649B;
+}
+
+.ai-class-row span:last-child {
+    margin-left: auto;
+    color: #71869A;
+    font-size: 0.85rem;
+}
+
+.ai-class-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.ai-dot-positive {
+    background: #438CCB;
+}
+
+.ai-dot-negative {
+    background: #10B981;
+}
+
+.ai-dataset-note {
+    height: 100%;
+    padding: 1.2rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+}
+
+.ai-dataset-note h4 {
+    margin: 0 0 10px;
+    color: #28649B;
+    font-size: 1.05rem;
+}
+
+.ai-dataset-note p {
+    margin: 0 0 10px;
+
+    color: #536B80;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.ai-dataset-note p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ----------------------------------------------------------
+   VARIABLES MÉDICALES
+   ---------------------------------------------------------- */
+
+[data-testid="stExpander"] {
+    margin-bottom: 0.8rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+}
+
+[data-testid="stExpander"] summary {
+    color: #28649B;
+    font-weight: 650;
+}
+
+
+/* ----------------------------------------------------------
+   PIPELINE DE PRÉPARATION — FRISE VERTICALE
+   ---------------------------------------------------------- */
+
+.ai-timeline {
+    position: relative;
+    margin: 1.2rem 0 1.6rem;
+    padding: 2px 0;
+}
+
+.ai-timeline::before {
+    content: "";
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: 18px;
+    width: 2px;
+    background: #D3E5F4;
+}
+
+.ai-timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 15px 12px 15px 0;
+    border-bottom: 1px solid #E5EFF7;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+.ai-timeline-item:last-child {
+    border-bottom: none;
+}
+
+.ai-timeline-item:hover {
+    padding-left: 5px;
+    background: #F8FBFE;
+}
+
+.ai-timeline-number {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: #DCEEFF;
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    color: #28649B;
+    font-size: 0.82rem;
+    font-weight: 750;
+}
+
+.ai-timeline-content {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+}
+
+.ai-timeline-content h4 {
+    margin: 2px 0 6px;
+    color: #28649B;
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+.ai-timeline-content p {
+    margin: 0;
+    color: #536B80;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+
+/* ----------------------------------------------------------
+   CARTES DES MODÈLES
+   ---------------------------------------------------------- */
+
+.ai-model-card {
+    height: 100%;
+    min-height: 300px;
+
+    padding: 1.4rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 8px;
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ai-model-card:hover {
+    border-color: #8BB9DF;
+    transform: translateY(-3px);
+}
+
+.ai-model-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-bottom: 1.2rem;
+}
+
+.ai-model-number {
+    color: #438CCB;
+    font-size: 1.1rem;
+    font-weight: 750;
+}
+
+.ai-model-tag {
+    padding: 5px 9px;
+
+    background: #EAF4FC;
+    border-radius: 4px;
+
+    color: #438CCB;
+    font-size: 0.75rem;
+    font-weight: 650;
+}
+
+.ai-model-card h3 {
+    margin: 0 0 12px;
+
+    color: #28649B;
+    font-size: 1.3rem;
+}
+
+.ai-model-card p {
+    min-height: 75px;
+    margin: 0 0 1rem;
+
+    color: #536B80;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.ai-model-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.ai-model-card li {
+    margin-bottom: 8px;
+
+    color: #536B80;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+
+/* ----------------------------------------------------------
+   SCHÉMA GLOBAL
+   ---------------------------------------------------------- */
+
+.ai-global-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 1.5rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 8px;
+}
+
+.ai-flow-block {
+    width: 100%;
+    max-width: 600px;
+
+    padding: 1.2rem;
+
+    background: #F4F9FD;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+
+    text-align: center;
+}
+
+.ai-flow-label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #438CCB;
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+}
+
+.ai-flow-block h4 {
+    margin: 0 0 7px;
+
+    color: #28649B;
+    font-size: 1.05rem;
+}
+
+.ai-flow-block p {
+    margin: 0;
+
+    color: #536B80;
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.ai-flow-arrow {
+    padding: 10px 0;
+
+    color: #438CCB;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.ai-flow-models {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    width: 100%;
+    max-width: 600px;
+}
+
+.ai-flow-model {
+    padding: 1rem;
+
+    background: #EAF4FC;
+    border: 1px solid #C9E0F3;
+    border-radius: 7px;
+
+    text-align: center;
+}
+
+.ai-flow-model span,
+.ai-flow-model strong {
+    display: block;
+}
+
+.ai-flow-model span {
+    margin-bottom: 6px;
+
+    color: #71869A;
+    font-size: 0.75rem;
+}
+
+.ai-flow-model strong {
+    color: #28649B;
+    font-size: 0.95rem;
+}
+
+.ai-flow-output {
+    width: 100%;
+    max-width: 600px;
+
+    padding: 1.2rem;
+
+    background: #F4F9FD;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+
+    text-align: center;
+}
+
+.ai-flow-output > span {
+    display: block;
+    margin-bottom: 1rem;
+
+    color: #71869A;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+}
+
+.ai-output-classes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.ai-output-negative,
+.ai-output-positive {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    padding: 1rem;
+
+    background: #FFFFFF;
+    border: 1px solid #D3E5F4;
+    border-radius: 6px;
+}
+
+.ai-output-negative strong,
+.ai-output-positive strong {
+    font-size: 1.4rem;
+}
+
+.ai-output-negative strong {
+    color: #10B981;
+}
+
+.ai-output-positive strong {
+    color: #438CCB;
+}
+
+.ai-output-negative span,
+.ai-output-positive span {
+    color: #536B80;
+    font-size: 0.85rem;
+}
+
+
+/* ----------------------------------------------------------
+   TABLEAU DES PERFORMANCES
+   ---------------------------------------------------------- */
+
+.ai-results-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin: 0.8rem 0 1rem;
+    border: 1px solid #D3E5F4;
+    border-radius: 7px;
+}
+
+.ai-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+    color: #536B80;
+    font-size: 0.9rem;
+}
+
+.ai-results-table th,
+.ai-results-table td {
+    padding: 13px 15px;
+    border-bottom: 1px solid #E5EFF7;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.ai-results-table thead th {
+    background: #EAF4FC;
+    color: #28649B;
+    font-weight: 700;
+}
+
+.ai-results-table tbody th {
+    color: #28649B;
+    font-weight: 650;
+}
+
+.ai-results-table tbody tr:last-child th,
+.ai-results-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ai-results-table tbody tr:hover {
+    background: #F8FBFE;
+}
+
+
+/* ----------------------------------------------------------
+   RESSOURCES
+   ---------------------------------------------------------- */
+
+.ai-resource {
+    margin: 0.7rem 0;
+}
+
+.ai-resource a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #438CCB;
+    font-size: 0.95rem;
+    font-weight: 650;
+
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.ai-resource a:hover {
+    color: #28649B;
+    text-decoration: underline;
+}
+
+.ai-resource-arrow {
+    font-size: 0.85rem;
+}
+
+.ai-resource-description {
+    margin: 3px 0 0;
+
+    color: #71869A;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------- */
+
+@media (max-width: 800px) {
+
+    .ai-intro-panel {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.4rem;
+    }
+
+    .ai-intro-content h3 {
+        font-size: 1.4rem;
+    }
+
+    .ai-intro-visual {
+        padding: 0.5rem;
+    }
+
+    .ai-section-heading h2 {
+        font-size: 1.35rem;
+    }
+
+    .ai-model-card {
+        min-height: auto;
+    }
+
+    .ai-model-card p {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .ai-section-heading {
+        gap: 10px;
+    }
+
+    .ai-section-number {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+
+    .ai-section-heading h2 {
+        font-size: 1.2rem;
+    }
+
+    .ai-timeline-item {
+        gap: 12px;
+    }
+
+    .ai-flow-models,
+    .ai-output-classes {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-global-flow {
+        padding: 0.8rem;
+    }
+
+    .ai-info-card {
+        min-height: auto;
+    }
+
+    .ai-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-intro-panel {
+        padding: 1rem;
+    }
+}
