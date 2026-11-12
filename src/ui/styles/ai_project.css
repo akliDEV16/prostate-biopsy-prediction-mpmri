@@ -1,14 +1,4 @@
-
-/* ==========================================================
-   PROSTAAI — PAGE NOTRE INTELLIGENCE ARTIFICIELLE
-   Palette : Glacier Blue
-   ========================================================== */
-
-
-/* ----------------------------------------------------------
-   TITRES DE SECTIONS
-   ---------------------------------------------------------- */
-
+/* TITRES DE SECTIONS */
 .ai-section-heading {
     display: flex;
     align-items: flex-start;
@@ -49,10 +39,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   INTRODUCTION
-   ---------------------------------------------------------- */
-
+/* INTRODUCTION */
 .ai-intro-panel {
     display: grid;
     grid-template-columns: 1.5fr 0.8fr;
@@ -182,10 +169,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   CARTES INFORMATIVES
-   ---------------------------------------------------------- */
-
+/* CARTES INFORMATIVES */
 .ai-info-card {
     display: flex;
     align-items: flex-start;
@@ -248,7 +232,6 @@
     line-height: 1.55;
 }
 
-/* Cartes de variables : le détail technique apparaît au survol */
 .ai-feature-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -336,10 +319,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   NOTES ET INFORMATIONS IMPORTANTES
-   ---------------------------------------------------------- */
-
+/* NOTES ET INFORMATIONS IMPORTANTES */
 .ai-note {
     margin: 1rem 0;
     padding: 1rem 1.2rem;
@@ -366,10 +346,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   BASE DE DONNÉES
-   ---------------------------------------------------------- */
-
+/* BASE DE DONNÉES */
 .ai-class-row {
     display: flex;
     align-items: center;
@@ -433,10 +410,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   VARIABLES MÉDICALES
-   ---------------------------------------------------------- */
-
+/* VARIABLES MÉDICALES */
 [data-testid="stExpander"] {
     margin-bottom: 0.8rem;
 
@@ -451,9 +425,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   PIPELINE DE PRÉPARATION — FRISE VERTICALE
-   ---------------------------------------------------------- */
+/* PIPELINE DE PRÉPARATION — FRISE VERTICALE */
 
 .ai-timeline {
     position: relative;
@@ -528,9 +500,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   CARTES DES MODÈLES
-   ---------------------------------------------------------- */
+/* CARTES DES MODÈLES */
 
 .ai-model-card {
     height: 100%;
@@ -608,9 +578,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   SCHÉMA GLOBAL
-   ---------------------------------------------------------- */
+/* SCHÉMA GLOBAL */
 
 .ai-global-flow {
     display: flex;
@@ -768,9 +736,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   TABLEAU DES PERFORMANCES
-   ---------------------------------------------------------- */
+/* TABLEAU DES PERFORMANCES */
 
 .ai-results-table-wrapper {
     width: 100%;
@@ -817,9 +783,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   RESSOURCES
-   ---------------------------------------------------------- */
+/* RESSOURCES */
 
 .ai-resource {
     margin: 0.7rem 0;
@@ -856,9 +820,7 @@
 }
 
 
-/* ----------------------------------------------------------
-   RESPONSIVE
-   ---------------------------------------------------------- */
+/* RESPONSIVE */
 
 @media (max-width: 800px) {
 

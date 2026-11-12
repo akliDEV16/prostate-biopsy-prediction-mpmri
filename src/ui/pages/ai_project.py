@@ -4,18 +4,10 @@ from html import escape
 
 from src.ui.styles import load_page_css
 
-
-# ============================================================
 # CONFIGURATION
-# ============================================================
-
 load_page_css("ai_project")
 
-
-# ============================================================
 # DONNÉES DU PROJET
-# ============================================================
-
 PATIENTS_TOTAL = 462
 CANCER_COUNT = 248
 NO_CANCER_COUNT = 214
@@ -131,11 +123,7 @@ MODEL_RESULTS = {
     },
 }
 
-
-# ============================================================
 # FONCTIONS D'AFFICHAGE
-# ============================================================
-
 def section_heading(number, title, subtitle=None):
     """Affiche le titre d'une section."""
 
@@ -276,17 +264,9 @@ def pipeline_timeline(steps):
 
     st.html(f'<div class="ai-timeline">{steps_html}</div>')
 
-
-# ============================================================
 # PAGE PRINCIPALE
-# ============================================================
-
 def main():
-
-    # --------------------------------------------------------
     # INTRODUCTION
-    # --------------------------------------------------------
-
     st.title("Notre intelligence artificielle")
 
     st.write(
@@ -346,10 +326,7 @@ def main():
 
     st.divider()
 
-    # --------------------------------------------------------
     # SECTION 01 : PRINCIPE DE L'APPROCHE IA
-    # --------------------------------------------------------
-
     section_heading(
         "01",
         "Comment fonctionne notre approche IA ?",
@@ -405,10 +382,7 @@ def main():
 
     st.divider()
 
-    # --------------------------------------------------------
     # SECTION 02 : BASE DE DONNEES
-    # --------------------------------------------------------
-
     section_heading(
         "02",
         "La base de données utilisée",
@@ -505,10 +479,7 @@ def main():
 
     st.divider()
 
-    # --------------------------------------------------------
     # SECTION 03 : VARIABLES
-    # --------------------------------------------------------
-
     section_heading(
         "03",
         "Quelles informations sont exploitées ?",
@@ -581,10 +552,7 @@ def main():
 
     st.divider()
 
-    # --------------------------------------------------------
     # SECTION 04 : PREPARATION DES DONNEES
-    # --------------------------------------------------------
-
     section_heading(
         "04",
         "De la donnée à l'apprentissage",
@@ -657,10 +625,7 @@ def main():
 
     st.divider()
 
-    # --------------------------------------------------------
     # SECTION 05 : MODELES
-    # --------------------------------------------------------
-
     section_heading(
         "05",
         "Les modèles de Machine Learning",
@@ -731,10 +696,7 @@ def main():
 
     st.divider()
 
-    # --------------------------------------------------------
     # SECTION 06 : EVALUATION
-    # --------------------------------------------------------
-
     section_heading(
         "06",
         "Comment évaluer les modèles ?",
