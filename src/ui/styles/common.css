@@ -1,22 +1,108 @@
+/* Styles communs à toutes les pages : arrière-plan animé, typographie, boutons, pied de page.
+   Chargé par app.py avant la feuille de chaque page. */
 
-/* APPLICATION */
+/* ANIMATIONS GLOBALES */
+@keyframes app-gradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes app-blob-one {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(6vw, 4vh) scale(1.12); }
+    66%  { transform: translate(-4vw, 8vh) scale(0.94); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes app-blob-two {
+    0%   { transform: translate(0, 0) scale(1); }
+    40%  { transform: translate(-7vw, -5vh) scale(1.08); }
+    75%  { transform: translate(5vw, -9vh) scale(0.92); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes app-blob-three {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    50%  { transform: translate(-5vw, 6vh) rotate(180deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes app-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes app-glow {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+
+/* ARRIÈRE-PLAN ANIMÉ */
 
 .stApp {
-    background-color: #EAF4FC;
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #EAF4FC, #F4F9FD, #DCEEFF, #EEF6FD, #E3F0FB);
+    background-size: 400% 400%;
+    animation: app-gradient 22s ease infinite;
     color: #28649B;
+    overflow-x: hidden;
+}
+
+/* Trois halos flottants, fixés derrière le contenu */
+.stApp::before,
+.stApp::after {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+    content: "";
+}
+
+.stApp::before {
+    top: -12vh;
+    left: -10vw;
+    width: 46vw;
+    height: 46vw;
+    max-width: 620px;
+    max-height: 620px;
+    background: radial-gradient(circle, #8BB9DF 0%, rgba(139, 185, 223, 0) 70%);
+    animation: app-blob-one 26s ease-in-out infinite;
+}
+
+.stApp::after {
+    right: -12vw;
+    bottom: -14vh;
+    width: 50vw;
+    height: 50vw;
+    max-width: 680px;
+    max-height: 680px;
+    background: radial-gradient(circle, #B8D8F2 0%, rgba(184, 216, 242, 0) 70%);
+    animation: app-blob-two 30s ease-in-out infinite;
 }
 
 .block-container {
+    position: relative;
+    z-index: 1;
     max-width: 1200px;
     padding-top: 2rem;
     padding-bottom: 3rem;
+}
+
+[data-testid="stHeader"] {
+    background: rgba(234, 244, 252, 0.72) !important;
+    backdrop-filter: blur(10px);
 }
 
 
 /* TYPOGRAPHIE */
 
 html {
-    font-size: 16px;
+    font-size: 17px;
 }
 
 body,
@@ -26,86 +112,95 @@ body,
 
 h1, h2, h3, h4 {
     color: #28649B !important;
-    font-weight: 650 !important;
+    font-weight: 700 !important;
     letter-spacing: -0.02em;
 }
 
 h1 {
-    font-size: 2.5rem !important;
-    line-height: 1.2;
+    font-size: 3rem !important;
+    line-height: 1.15;
+    background: linear-gradient(90deg, #28649B, #438CCB, #28649B);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: app-glow 8s ease infinite, app-rise 0.7s ease both;
 }
 
 h2 {
-    font-size: 1.9rem !important;
+    font-size: 2.2rem !important;
 }
 
 h3 {
-    font-size: 1.55rem !important;
+    font-size: 1.75rem !important;
 }
 
 h4 {
-    font-size: 1.25rem !important;
+    font-size: 1.4rem !important;
 }
 
 p,
-.stMarkdown {
-    color: #536B80;
-    font-size: 1.08rem;
-    line-height: 1.65;
+.stMarkdown,
+.stMarkdown li {
+    color: #3F5A70;
+    font-size: 1.14rem;
+    line-height: 1.7;
 }
 
 hr {
     border: none;
-    border-top: 1px solid #D3E5F4;
-    margin: 1.8rem 0;
+    height: 2px;
+    margin: 2.2rem 0;
+    background: linear-gradient(90deg, transparent, #8BB9DF, transparent);
+    background-size: 200% 100%;
+    animation: app-glow 6s ease infinite;
 }
 
 
 /* NAVIGATION */
-
-[data-testid="stHeader"] {
-    background-color: #EAF4FC;
-}
 
 [data-testid="stBaseButton-headerNoPadding"] {
     color: #28649B;
 }
 
 [data-testid="stPageLink"] a {
-    color: #536B80;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: color 0.15s ease;
+    color: #3F5A70;
+    font-size: 1.08rem;
+    font-weight: 600;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 [data-testid="stPageLink"] a:hover {
     color: #438CCB;
+    transform: translateY(-1px);
 }
 
 
 /* BOUTONS STANDARDS */
 
 .stButton > button {
-    background-color: #438CCB;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #438CCB 0%, #28649B 100%);
     color: #FFFFFF !important;
-    border: 1px solid #438CCB;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.65rem 1.3rem;
-    box-shadow: none;
-    transition: background-color 0.2s ease,
-                border-color 0.2s ease;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.8rem 1.6rem;
+    box-shadow: 0 6px 16px rgba(40, 100, 155, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stButton > button p,
 .stButton > button span {
     color: #FFFFFF !important;
+    font-size: 1.1rem;
 }
 
 .stButton > button:hover {
-    background-color: #28649B !important;
-    border-color: #28649B !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(40, 100, 155, 0.35);
     color: #FFFFFF !important;
 }
 
@@ -114,37 +209,135 @@ hr {
     color: #FFFFFF !important;
 }
 
+.stButton > button:active {
+    transform: translateY(0);
+}
+
 .stButton > button:focus:not(:active) {
-    border-color: #438CCB;
     color: #FFFFFF !important;
 }
 
 
-/* FOOTER */
+/* ONGLETS, ACCORDÉONS, CHOIX ET MÉTRIQUES */
+
+[data-baseweb="tab-list"] {
+    gap: 8px;
+}
+
+[data-baseweb="tab"] {
+    padding: 10px 16px !important;
+    border-radius: 10px 10px 0 0;
+    transition: background-color 0.2s ease;
+}
+
+[data-baseweb="tab"] p {
+    color: #3F5A70 !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+}
+
+[data-baseweb="tab"][aria-selected="true"] p {
+    color: #28649B !important;
+}
+
+[data-baseweb="tab"]:hover {
+    background-color: rgba(218, 236, 250, 0.7);
+}
+
+[data-baseweb="tab-highlight"] {
+    background-color: #438CCB !important;
+    height: 3px !important;
+}
+
+[data-testid="stExpander"] {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #D3E5F4 !important;
+    border-radius: 12px !important;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+[data-testid="stExpander"]:hover {
+    box-shadow: 0 8px 20px rgba(40, 100, 155, 0.1);
+}
+
+[data-testid="stExpander"] summary p {
+    color: #28649B !important;
+    font-size: 1.15rem !important;
+    font-weight: 650 !important;
+}
+
+[data-testid="stMetric"] {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #D3E5F4;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-testid="stMetric"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(40, 100, 155, 0.12);
+}
+
+[data-testid="stMetricLabel"] {
+    color: #3F5A70;
+    font-size: 1.1rem;
+}
+
+[data-testid="stMetricValue"] {
+    color: #438CCB;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+[data-testid="stWidgetLabel"] p {
+    color: #28649B !important;
+    font-size: 1.08rem !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stRadio"] label p,
+[data-testid="stCheckbox"] label p {
+    font-size: 1.08rem !important;
+}
+
+
+/* PIED DE PAGE */
 
 .app-footer {
+    position: relative;
     width: 100%;
     box-sizing: border-box;
-
-    margin-top: 2.5rem;
-    padding: 1.3rem 1.5rem;
-
-    background-color: #FFFFFF;
+    margin-top: 3rem;
+    padding: 1.6rem 1.8rem;
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid #D3E5F4;
-    border-radius: 7px;
+    border-radius: 14px;
+    box-shadow: 0 -6px 24px rgba(40, 100, 155, 0.06);
+    overflow: hidden;
+    animation: app-rise 0.8s ease both;
+}
 
-    box-shadow: none;
+.footer-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #8BB9DF, #438CCB, #10B981, #438CCB, #8BB9DF);
+    background-size: 300% 100%;
+    animation: app-glow 9s ease infinite;
 }
 
 .footer-info {
-    color: #536B80;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 0.8rem;
+    color: #3F5A70;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 0.9rem;
 }
 
 .footer-info span {
-    margin: 0 0.4rem;
+    margin: 0 0.5rem;
     color: #438CCB;
 }
 
@@ -153,13 +346,12 @@ hr {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.5rem;
-
-    padding-top: 0.8rem;
+    gap: 0.6rem;
+    padding-top: 0.9rem;
     border-top: 1px solid #D3E5F4;
-
     color: #536B80;
-    font-size: 0.82rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
 }
 
 
@@ -180,7 +372,7 @@ hr {
     background-color: #EEF2FF;
     border-left: 3px solid #6366F1;
     padding: 0.9rem 1.1rem;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .status-negative {
@@ -195,6 +387,9 @@ hr {
 /* RESPONSIVE */
 
 @media (max-width: 640px) {
+    html {
+        font-size: 16px;
+    }
 
     .block-container {
         padding-top: 1.2rem;
@@ -202,18 +397,37 @@ hr {
     }
 
     h1 {
-        font-size: 2rem !important;
+        font-size: 2.3rem !important;
     }
 
     h2 {
-        font-size: 1.6rem !important;
+        font-size: 1.7rem !important;
     }
 
     h3 {
-        font-size: 1.35rem !important;
+        font-size: 1.4rem !important;
+    }
+
+    .stApp::before,
+    .stApp::after {
+        opacity: 0.35;
     }
 
     .app-footer {
-        padding: 1rem;
+        padding: 1.2rem;
+    }
+}
+
+
+/* ACCESSIBILITÉ : réduire les animations si l'utilisateur le demande */
+@media (prefers-reduced-motion: reduce) {
+    .stApp,
+    .stApp::before,
+    .stApp::after,
+    h1,
+    hr,
+    .app-footer,
+    .footer-glow {
+        animation: none !important;
     }
 }
