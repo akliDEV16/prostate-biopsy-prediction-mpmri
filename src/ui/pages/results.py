@@ -303,8 +303,7 @@ def main():
         resume, details = charger_resultats()
     except FileNotFoundError:
         st.warning(
-            "Les fichiers de résultats sont introuvables dans le dossier results/. "
-            "Lancez `python main.py` depuis la racine du projet."
+            "Les résultats ne sont pas disponibles pour le moment sur cette version en ligne."
         )
         return
 
@@ -438,42 +437,55 @@ def main():
         "Chaque courbe montre le compromis entre détection des cancers et fausses alertes, selon le seuil."
     )
 
-    predictions = calculer_predictions()
-    with st.container(border=True, key="res_roc_card"):
-        st.pyplot(graphique_roc(predictions["y"], predictions["proba"]))
-        plt.close("all")
-    encadre(
-        "Pourquoi cette courbe peut différer légèrement de l'AUC du tableau",
-        "La courbe est tracée à partir des prédictions hors pli moyennées sur les 3 répétitions. "
-        "Le tableau de la section 03 est la moyenne des AUC calculées sur chacun des 15 découpes."
-    )
+    try:
+        predictions = calculer_predictions()
+    except FileNotFoundError:
+        predictions = None
 
-    # SECTION 06 : MATRICES DE CONFUSION
-    titre_section(
-        "06",
-        "Matrices de confusion",
-        "Décisions au seuil de 50 % : probabilité ≥ 0,5 → cancer prédit. Chaque cellule indique un effectif de patients."
-    )
+    if predictions is None:
+        encadre(
+            "Sections 05 à 07 indisponibles",
+            "Les courbes ROC, les matrices de confusion et l'analyse des erreurs nécessitent "
+            "les données du modèle, qui ne sont pas publiées sur cette version en ligne. "
+            "Les tableaux ci-dessus restent valables.",
+            genre="avertissement"
+        )
+    else:
+        with st.container(border=True, key="res_roc_card"):
+            st.pyplot(graphique_roc(predictions["y"], predictions["proba"]))
+            plt.close("all")
+        encadre(
+            "Pourquoi cette courbe peut différer légèrement de l'AUC du tableau",
+            "La courbe est tracée à partir des prédictions hors pli moyennées sur les 3 répétitions. "
+            "Le tableau de la section 03 est la moyenne des AUC calculées sur chacun des 15 découpes."
+        )
 
-    cartes = "".join(
-        carte_matrice(nom, matrice_confusion(predictions["y"], predictions["proba"][nom]))
-        for nom in MODELES_ETUDIES
-    )
-    st.html(f'<div class="res-cm-wrapper">{cartes}</div>')
+        # SECTION 06 : MATRICES DE CONFUSION
+        titre_section(
+            "06",
+            "Matrices de confusion",
+            "Décisions au seuil de 50 % : probabilité ≥ 0,5 → cancer prédit. Chaque cellule indique un effectif de patients."
+        )
 
-    # SECTION 07 : ANALYSE DES ERREURS
-    titre_section(
-        "07",
-        "Analyse des erreurs",
-        "Où les modèles se trompent-ils le plus souvent ? Taux de bonne classification par sous-groupe."
-    )
-    st.html(tableau_sous_groupes(predictions["y"], predictions["proba"], predictions["meta"]))
-    encadre(
-        "Limites observées",
-        "Les faux négatifs (cancers non détectés) sont l'erreur la plus importante sur le plan clinique. "
-        "Les sous-groupes sont de petite taille : leurs taux doivent être lus avec prudence.",
-        genre="avertissement"
-    )
+        cartes = "".join(
+            carte_matrice(nom, matrice_confusion(predictions["y"], predictions["proba"][nom]))
+            for nom in MODELES_ETUDIES
+        )
+        st.html(f'<div class="res-cm-wrapper">{cartes}</div>')
+
+        # SECTION 07 : ANALYSE DES ERREURS
+        titre_section(
+            "07",
+            "Analyse des erreurs",
+            "Où les modèles se trompent-ils le plus souvent ? Taux de bonne classification par sous-groupe."
+        )
+        st.html(tableau_sous_groupes(predictions["y"], predictions["proba"], predictions["meta"]))
+        encadre(
+            "Limites observées",
+            "Les faux négatifs (cancers non détectés) sont l'erreur la plus importante sur le plan clinique. "
+            "Les sous-groupes sont de petite taille : leurs taux doivent être lus avec prudence.",
+            genre="avertissement"
+        )
 
     # SECTION 08 : DISCUSSION
     titre_section(
