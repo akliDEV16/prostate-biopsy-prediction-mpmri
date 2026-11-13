@@ -27,6 +27,8 @@ ENV/
 # MODELES ENTRAINES
 *.pkl
 *.joblib
+!models/random_forest.joblib
+!models/regression_logistique.joblib
 *.pth
 *.pt
 *.h5
