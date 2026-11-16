@@ -20,7 +20,8 @@ MODELES = {
 }
 
 SEUIL = 0.5                              # même seuil que la page Résultats
-AGE_MIN, AGE_MAX = 18, 100
+AGE_MIN = 50
+AGE_MAX = 80
 PSA_MAX = 200.0                          # données observées : jusqu'à environ 105 ng/mL
 VOLUME_MIN, VOLUME_MAX = 5.0, 400.0      # données observées : 12,8 à 286 mL
 DIMENSION_MAX = 60.0                     # données observées : 0 à 45 mm
@@ -191,22 +192,6 @@ def predire(modeles, patient):
     return resultats
 
 
-def comparer(probabilites):
-    """Phrase pédagogique sur l'accord ou le désaccord entre les deux modèles."""
-    valeurs = list(probabilites.values())
-    ecart = abs(valeurs[0] - valeurs[1]) * 100
-    meme_decision = (valeurs[0] >= SEUIL) == (valeurs[1] >= SEUIL)
-
-    if meme_decision:
-        accord = "Les deux modèles donnent la même prédiction au seuil de 50 %."
-    else:
-        accord = (
-            "Les deux modèles ne donnent pas la même prédiction au seuil de 50 % : "
-            "ce patient se situe près de la frontière de décision."
-        )
-    return f"{accord} Écart entre les deux estimations : {ecart:.0f} points de pourcentage."
-
-
 # PAGE PRINCIPALE
 def main():
     st.title("Démonstration")
@@ -291,7 +276,7 @@ def main():
             with col_clinique:
                 st.markdown("#### Profil clinique")
                 age = st.number_input(
-                    "Âge (années)", min_value=AGE_MIN, max_value=AGE_MAX, value=68, step=1
+                    "Âge (années)", min_value=AGE_MIN, max_value=AGE_MAX, value=80, step=1
                 )
                 psa = st.number_input(
                     "PSA total (ng/mL)", min_value=0.1, max_value=PSA_MAX, value=8.0, step=0.1
@@ -386,7 +371,6 @@ def main():
             with colonne:
                 jauge(nom, probabilite)
 
-        encadre("Comparaison des modèles", comparer(resultat["probabilites"]))
         valeurs_derivees(resultat["patient"])
 
     # SECTION 04 : INTERPRÉTATION
